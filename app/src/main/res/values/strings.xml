@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MarketApp</string>
+    <string name="title">FORMULARIO</string>
+    <string name="input_name">Ingrese sus nombres</string>
+    <string name="input_number">Ingrese su número de documento</string>
+    <string name="dni">DNI</string>
+    <string name="carnet">Carnet de Extranjería</string>
+    <string name="send">Enviar</string>
+    <string name="warning_name">Enter names</string>
+    <string name="warning_document">Enter document number</string>
+</resources>
