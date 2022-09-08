@@ -74,6 +74,12 @@ class MainActivity : AppCompatActivity() {
         hello("Junior") {
             println(it)
         }
+
+        val person = Person("Junior", "Saravia")
+        val person2 = Person("Junior", "Saravia")
+
+        Person.hello
+
         startActivity(intent)
     }
 
