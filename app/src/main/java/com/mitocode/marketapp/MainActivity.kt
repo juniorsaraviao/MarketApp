@@ -26,48 +26,55 @@ class MainActivity : AppCompatActivity() {
         // val btnSend: Button = findViewById(R.id.btnSend)
 
         // Kotlin extension
-        btnSend.setOnClickListener {
-            // Get data
-            val name = edtName.text.toString()
-            val doc = edtDocNumber.text.toString()
-            val type = if (rbDni.isChecked) "DNI" else "Carnet"
+//        btnSend.setOnClickListener {
+//            sendData()
+//        }
 
-            // validate
-            if (name.isEmpty()){
-                Toast.makeText(this, getString(R.string.warning_name), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (doc.isEmpty()){
-                Toast.makeText(this, getString(R.string.warning_document), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Scope functions - LET, APPLY, RUN, WITH - reduce code
-
-            // Save data - BUNDLE
-            val bundle = Bundle().apply{
-                putString("KEY_NAME", name)
-                putString("KEY_DOC", doc)
-                putString("TYPE_DOC", type)
-            }
-
-            // Navigation - INTENT
-            val intent = Intent(this, DestinationActivity::class.java).apply {
-                putExtras(bundle)
-            }
-            val sum = 5.plus2(3)
-            val sum2 = 6 mas 5
-
-            val sum3 = operatorFun(5, 6){ x,y ->
-                x + y
-            }
-
-            hello("Junior") {
-                println(it)
-            }
-            startActivity(intent)
+        btnSend click {
+            sendData()
         }
+    }
+
+    private fun sendData() {
+        // Get data
+        val name = edtName.text.toString()
+        val doc = edtDocNumber.text.toString()
+        val type = if (rbDni.isChecked) "DNI" else "Carnet"
+
+        // validate
+        if (name.isEmpty()) {
+            toast(getString(R.string.warning_name))
+            return
+        }
+
+        if (doc.isEmpty()) {
+            Toast.makeText(this, getString(R.string.warning_document), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Scope functions - LET, APPLY, RUN, WITH - reduce code
+
+        // Save data - BUNDLE
+        val bundle = Bundle().apply {
+            putString("KEY_NAME", name)
+            putString("KEY_DOC", doc)
+            putString("TYPE_DOC", type)
+        }
+
+        // Navigation - INTENT
+        val intent = Intent(this, DestinationActivity::class.java).apply {
+            putExtras(bundle)
+        }
+        val sum = 5.plus2(3)
+        val sum2 = 6 mas 5
+
+        val sum3 = operatorFun(5, 6) { x, y ->
+            x + y
+        }
+        hello("Junior") {
+            println(it)
+        }
+        startActivity(intent)
     }
 
     // Extensions
