@@ -8,4 +8,9 @@
     <string name="send">Enviar</string>
     <string name="warning_name">Enter names</string>
     <string name="warning_document">Enter document number</string>
+    <string name="course">Course</string>
+    <string name="enrollment">Enrollment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="curso">CURSO</string>
 </resources>
