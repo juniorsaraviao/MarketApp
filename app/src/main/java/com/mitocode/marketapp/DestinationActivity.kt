@@ -13,11 +13,13 @@ class DestinationActivity : AppCompatActivity() {
 
         // Scope function - LET
         bundle?.let {
-            val name = bundle.getString("KEY_NAME")
-            val doc = bundle.getString("KEY_DOC")
-            val typeDoc = bundle.getString("TYPE_DOC")
+            val name = it.getString("KEY_NAME") ?: "UNKNOWN"
+            val doc = it.getString("KEY_DOC") ?: "UNKNOWN"
+            val typeDoc = it.getString("TYPE_DOC") ?: "UNKNOWN"
 
             println("Names: $name - Doc Number: $doc - Type Doc: $typeDoc")
+        } ?: run {
+            // execute if bundle is null
         }
 
         // Common programming code

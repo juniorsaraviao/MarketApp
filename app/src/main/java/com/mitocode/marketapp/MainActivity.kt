@@ -56,7 +56,35 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DestinationActivity::class.java).apply {
                 putExtras(bundle)
             }
+            val sum = 5.plus2(3)
+            val sum2 = 6 mas 5
+
+            val sum3 = operatorFun(5, 6){ x,y ->
+                x + y
+            }
+
+            hello("Junior") {
+                println(it)
+            }
             startActivity(intent)
         }
+    }
+
+    // Extensions
+    // every int adds 2
+    private fun Int.plus2(number: Int){
+        this + number
+    }
+
+    // Infix - only one parameter
+    infix fun Int.mas(number: Int) = this + number
+
+    // Lambdas // (Parameter) -> Return
+    fun operatorFun(x:Int, y: Int, myFun: (Int, Int) -> Int): Int{
+        return myFun(x, y)
+    }
+
+    fun hello(name: String, hi: (String) -> Unit){
+        hi(name)
     }
 }
