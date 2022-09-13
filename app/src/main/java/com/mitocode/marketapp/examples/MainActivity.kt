@@ -1,10 +1,10 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.examples
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
+import com.mitocode.marketapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

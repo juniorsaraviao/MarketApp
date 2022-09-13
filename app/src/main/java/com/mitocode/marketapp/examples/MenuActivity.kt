@@ -1,10 +1,10 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.examples
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.mitocode.marketapp.R
 import com.mitocode.marketapp.databinding.ActivityMenuBinding
-import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.examples
 
 import android.content.Context
 import android.view.View

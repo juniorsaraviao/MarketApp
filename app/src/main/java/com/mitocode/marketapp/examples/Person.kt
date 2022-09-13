@@ -1,4 +1,4 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.examples
 
 
 /*data class -> when we manipulate things - at least 1 attribute

@@ -1,7 +1,8 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.examples
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mitocode.marketapp.R
 
 class DestinationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
