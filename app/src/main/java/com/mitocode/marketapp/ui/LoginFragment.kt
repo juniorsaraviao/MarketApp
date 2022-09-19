@@ -12,6 +12,10 @@ import com.mitocode.marketapp.data.UserRemote
 import com.mitocode.marketapp.data.WrappedResponse
 import com.mitocode.marketapp.databinding.FragmentLoginBinding
 import com.mitocode.marketapp.ui.common.toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,29 +42,60 @@ class LoginFragment : Fragment() {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
 
-            // Use retrofit
-            val request = Api.build().auth(LoginRequest(email, password))
-            request.enqueue(object : Callback<WrappedResponse<UserRemote>>{
+            //useRetrofit(email, password)
 
-                // OnResponse - OnFailure
-                override fun onResponse(call: Call<WrappedResponse<UserRemote>>, response: Response<WrappedResponse<UserRemote>>) {
+            // USE RETROFIT + COROUTINES
+            // Dispatcher - Suspend functions - Scope
+            GlobalScope.launch(Dispatchers.Main) {
+                try {
+                    // Add suspend on Api to wait for the response
+                    val response = withContext(Dispatchers.IO){
+                        Api.build().auth(LoginRequest(email, password))
+                    }
+
                     if (response.isSuccessful){
 
                         val response = response.body()
                         response?.let {
                             requireContext().toast(it.data!!.type)
                         }
+
                     }else{
-                        requireContext().toast(response.message())
+                        requireContext().toast(response.toString())
                     }
+                }catch (ex: Exception){
+                    requireContext().toast(ex.message.toString())
                 }
-
-                override fun onFailure(call: Call<WrappedResponse<UserRemote>>, t: Throwable) {
-                    requireContext().toast(t.message.toString())
-                }
-
-            })
+            }
 
         }
+    }
+
+    private fun useRetrofit(email: String, password: String) {
+        // Use retrofit
+        /* val request = Api.build().auth(LoginRequest(email, password))
+        request.enqueue(object : Callback<WrappedResponse<UserRemote>> {
+
+            // OnResponse - OnFailure
+            override fun onResponse(
+                call: Call<WrappedResponse<UserRemote>>,
+                response: Response<WrappedResponse<UserRemote>>
+            ) {
+                if (response.isSuccessful) {
+
+                    val response = response.body()
+                    response?.let {
+                        requireContext().toast(it.data!!.type)
+                    }
+                } else {
+                    requireContext().toast(response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<WrappedResponse<UserRemote>>, t: Throwable) {
+                requireContext().toast(t.message.toString())
+            }
+
+        }) */
     }
 }
