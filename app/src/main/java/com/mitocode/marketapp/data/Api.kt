@@ -1,5 +1,7 @@
 package com.mitocode.marketapp.data
 
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -18,7 +20,7 @@ object Api {
 
     interface ApiInterface {
         @POST("/api/usuarios/login")
-        fun auth(@Body request: LoginRequest) : WrappedResponse<UserRemote>
+        fun auth(@Body request: LoginRequest) : Call<WrappedResponse<UserRemote>>
     }
 
     fun build(): ApiInterface{
