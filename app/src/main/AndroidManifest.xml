@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mitocode.marketapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MarketApp.NoActionBar"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".examples.InitialHostActivity"
+            android:name=".examples.OperationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +26,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".examples.InitialHostActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".examples.MenuActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".examples.DestinationActivity"
             android:exported="false" />
