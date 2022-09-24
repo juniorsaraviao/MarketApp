@@ -40,6 +40,16 @@ class LoginFragment : Fragment() {
         setupObserves()
     }
 
+    private fun events() {
+        binding.btnSignIn.setOnClickListener {
+
+            val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
+
+            loginViewModel.auth(email, password)
+        }
+    }
+
     private fun setupObserves() {
         loginViewModel.loader.observe(viewLifecycleOwner) { condition ->
             progressBar.visibility = if (condition) View.VISIBLE else View.GONE
@@ -51,16 +61,6 @@ class LoginFragment : Fragment() {
 
         loginViewModel.user.observe(viewLifecycleOwner) { user ->
             requireContext().toast("Welcome ${user.names} ${user.surname}")
-        }
-    }
-
-    private fun events() {
-        binding.btnSignIn.setOnClickListener {
-
-            val email = binding.edtEmail.text.toString()
-            val password = binding.edtPassword.text.toString()
-
-            loginViewModel.auth(email, password)
         }
     }
 
