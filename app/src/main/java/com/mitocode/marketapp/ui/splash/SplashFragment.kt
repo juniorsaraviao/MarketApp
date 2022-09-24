@@ -1,4 +1,4 @@
-package com.mitocode.marketapp.ui
+package com.mitocode.marketapp.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
