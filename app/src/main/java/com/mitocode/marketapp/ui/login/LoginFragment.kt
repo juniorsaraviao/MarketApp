@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.data.Api
 import com.mitocode.marketapp.data.LoginRequest
@@ -44,13 +45,17 @@ class LoginFragment : Fragment() {
         setupObserves()
     }
 
-    private fun events() {
-        binding.btnSignIn.setOnClickListener {
+    private fun events() = with(binding) {
+        btnSignIn.setOnClickListener {
 
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
 
             loginViewModel.auth(email, password)
+        }
+
+        tvCreateAccount.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 

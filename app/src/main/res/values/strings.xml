@@ -23,4 +23,16 @@
     <string name="fragment_login_rememberAccount">Recordar mi cuenta</string>
     <string name="fragment_login_createAccount">Crear mi cuenta</string>
     <string name="fragment_login_forgetPassword">Olvidé mi contraseña?</string>
+
+<!--    Screen Register-->
+    <string name="fragment_register_names">Nombres</string>
+    <string name="fragment_register_surname">Apellidos</string>
+    <string name="fragment_register_email">Correo</string>
+    <string name="fragment_register_phone">Celular</string>
+    <string name="fragment_register_gender">Género</string>
+    <string name="fragment_register_document">Numero de documento</string>
+    <string name="fragment_register_password">Contraseña</string>
+    <string name="fragment_register_terms">Acepto los términos y condiciones</string>
+    <string name="fragment_register_register">Crear cuenta</string>
+    <string name="fragment_register_title">Crear cuenta</string>
 </resources>
