@@ -35,6 +35,10 @@ class LoginFragment : Fragment() {
 
         binding = FragmentLoginBinding.bind(view)
 
+        // Mockup
+        binding.edtEmail.setText("jledesma2509@gmail.com")
+        binding.edtPassword.setText("12345")
+
         events()
 
         setupObserves()
