@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupObserves() {
-        loginViewModel.loader.observe(viewLifecycleOwner) { condition ->
+        /* loginViewModel.loader.observe(viewLifecycleOwner) { condition ->
             progressBar.visibility = if (condition) View.VISIBLE else View.GONE
         }
 
@@ -65,62 +65,85 @@ class LoginFragment : Fragment() {
 
         loginViewModel.user.observe(viewLifecycleOwner) { user ->
             requireContext().toast("Welcome ${user.names} ${user.surname}")
+        } */
+
+        loginViewModel.state.observe(viewLifecycleOwner){ state ->
+
+            when(state){
+                LoginViewModel.LoginState.Init -> Unit
+                is LoginViewModel.LoginState.Error -> showError(state.rawResponse)
+                is LoginViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
+                is LoginViewModel.LoginState.Success -> {
+                    val userRemote = state.user
+                    requireContext().toast("Welcome ${userRemote.names} ${userRemote.surname}")
+                }
+            }
+
         }
     }
 
-    //useRetrofit(email, password)
+    private fun showError(error: String){
+        requireContext().toast(error)
+    }
 
-    // USE RETROFIT + COROUTINES
-    // Dispatcher - Suspend functions - Scope
-    /* GlobalScope.launch(Dispatchers.Main) {
-        try {
-            // Add suspend on Api to wait for the response
-            val response = withContext(Dispatchers.IO){
-                Api.build().auth(LoginRequest(email, password))
+    private fun showProgress(visibility: Boolean){
+        progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
+    }
+}
+
+
+//useRetrofit(email, password)
+
+// USE RETROFIT + COROUTINES
+// Dispatcher - Suspend functions - Scope
+/* GlobalScope.launch(Dispatchers.Main) {
+    try {
+        // Add suspend on Api to wait for the response
+        val response = withContext(Dispatchers.IO){
+            Api.build().auth(LoginRequest(email, password))
+        }
+
+        if (response.isSuccessful){
+
+            val response = response.body()
+            response?.let {
+                requireContext().toast(it.data!!.type)
             }
 
-            if (response.isSuccessful){
+        }else{
+            requireContext().toast(response.toString())
+        }
+    }catch (ex: Exception){
+        requireContext().toast(ex.message.toString())
+    }
+} */
+
+
+
+/* private fun useRetrofit(email: String, password: String) {
+    // Use retrofit
+    /* val request = Api.build().auth(LoginRequest(email, password))
+    request.enqueue(object : Callback<WrappedResponse<UserRemote>> {
+
+        // OnResponse - OnFailure
+        override fun onResponse(
+            call: Call<WrappedResponse<UserRemote>>,
+            response: Response<WrappedResponse<UserRemote>>
+        ) {
+            if (response.isSuccessful) {
 
                 val response = response.body()
                 response?.let {
                     requireContext().toast(it.data!!.type)
                 }
-
-            }else{
-                requireContext().toast(response.toString())
+            } else {
+                requireContext().toast(response.message())
             }
-        }catch (ex: Exception){
-            requireContext().toast(ex.message.toString())
         }
-    } */
 
+        override fun onFailure(call: Call<WrappedResponse<UserRemote>>, t: Throwable) {
+            requireContext().toast(t.message.toString())
+        }
 
-
-    private fun useRetrofit(email: String, password: String) {
-        // Use retrofit
-        /* val request = Api.build().auth(LoginRequest(email, password))
-        request.enqueue(object : Callback<WrappedResponse<UserRemote>> {
-
-            // OnResponse - OnFailure
-            override fun onResponse(
-                call: Call<WrappedResponse<UserRemote>>,
-                response: Response<WrappedResponse<UserRemote>>
-            ) {
-                if (response.isSuccessful) {
-
-                    val response = response.body()
-                    response?.let {
-                        requireContext().toast(it.data!!.type)
-                    }
-                } else {
-                    requireContext().toast(response.message())
-                }
-            }
-
-            override fun onFailure(call: Call<WrappedResponse<UserRemote>>, t: Throwable) {
-                requireContext().toast(t.message.toString())
-            }
-
-        }) */
-    }
-}
+    }) */
+} */
