@@ -52,7 +52,7 @@ class LoginViewModel : ViewModel() {
 
                 }else{
                     //_error.value = response.toString()
-                    _state.value = LoginState.Error(response.toString())
+                    _state.value = LoginState.Error(response.message().toString())
                 }
             }catch (ex: Exception){
                 //_error.value = ex.message.toString()

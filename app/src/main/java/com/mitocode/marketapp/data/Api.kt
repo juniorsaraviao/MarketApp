@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 object Api {
@@ -22,6 +23,9 @@ object Api {
     interface ApiInterface {
         @POST("/api/usuarios/login")
         suspend fun auth(@Body request: LoginRequest) : Response<WrappedResponse<UserRemote>>
+
+        @GET("api/usuarios/obtener-generos")
+        suspend fun getGenders(): Response<WrappedListResponse<GenderRemote>>
     }
 
     fun build(): ApiInterface{
