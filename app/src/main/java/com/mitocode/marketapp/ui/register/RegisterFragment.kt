@@ -61,7 +61,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun populateGenders(genders: List<GenderRemote>) = with(binding){
-        spGender.setAdapter(ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, genders))
+        spGender.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner_gender, genders))
     }
 
 }

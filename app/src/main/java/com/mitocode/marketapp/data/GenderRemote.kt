@@ -7,4 +7,8 @@ data class GenderRemote(
     val gender: String,
     @SerializedName("descripcion")
     val description: String
-)
+){
+    override fun toString(): String {
+        return description
+    }
+}
