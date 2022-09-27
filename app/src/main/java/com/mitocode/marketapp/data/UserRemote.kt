@@ -8,7 +8,7 @@ data class UserRemote (
     @SerializedName("nombres")
     val names: String,
     @SerializedName("apellidos")
-    val surname: String,
+    val surnames: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("celular")

@@ -51,6 +51,16 @@ class LoginFragment : Fragment() {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
 
+            if(email.isEmpty()){
+                tilEmail.error = getString(R.string.fragment_login_validation_email)
+                return@setOnClickListener
+            }
+
+            if(password.isEmpty()){
+                tilEmail.error = getString(R.string.fragment_login_validation_password)
+                return@setOnClickListener
+            }
+
             loginViewModel.auth(email, password)
         }
 
@@ -80,7 +90,7 @@ class LoginFragment : Fragment() {
                 is LoginViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
                 is LoginViewModel.LoginState.Success -> {
                     val userRemote = state.user
-                    requireContext().toast("Welcome ${userRemote.names} ${userRemote.surname}")
+                    requireContext().toast("Welcome ${userRemote.names} ${userRemote.surnames}")
                 }
             }
 

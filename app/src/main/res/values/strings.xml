@@ -35,4 +35,13 @@
     <string name="fragment_register_terms">Acepto los términos y condiciones</string>
     <string name="fragment_register_register">Crear cuenta</string>
     <string name="fragment_register_title">Crear cuenta</string>
+    <string name="fragment_register_validation_names">Debe ingresar sus nombre</string>
+    <string name="fragment_register_validation_surnames">Debe ingresar sus apellidos</string>
+    <string name="fragment_register_validation_email">Debe ingresar su correo electrónico</string>
+    <string name="fragment_register_validation_phone">Debe ingresar su número celular</string>
+    <string name="fragment_register_validation_numDoc">Debe ingresar su número de documento</string>
+    <string name="fragment_register_validation_password">Debe ingresar una contraseña</string>
+    <string name="fragment_login_validation_email">Debe ingresar su correo electrónico</string>
+    <string name="fragment_login_validation_password">Debe ingresar una contraseña</string>
+    <string name="fragment_register_validation_terms_conditions">Debe aceptar los términos y condiciones</string>
 </resources>

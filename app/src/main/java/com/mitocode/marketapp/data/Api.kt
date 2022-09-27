@@ -26,6 +26,9 @@ object Api {
 
         @GET("api/usuarios/obtener-generos")
         suspend fun getGenders(): Response<WrappedListResponse<GenderRemote>>
+
+        @POST("/api/usuarios/crear-cuenta")
+        suspend fun registerAccount(@Body request: RegisterAccountRequest): Response<WrappedResponse<UserRemote>>
     }
 
     fun build(): ApiInterface{
