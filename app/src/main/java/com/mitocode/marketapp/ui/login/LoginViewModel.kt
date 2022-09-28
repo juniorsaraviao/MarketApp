@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mitocode.marketapp.data.Api
 import com.mitocode.marketapp.data.LoginRequest
 import com.mitocode.marketapp.data.UserRemote
+import com.mitocode.marketapp.usescases.RequestAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,6 +26,8 @@ class LoginViewModel : ViewModel() {
     private val _state: MutableLiveData<LoginState> = MutableLiveData(LoginState.Init)
     val state: LiveData<LoginState> = _state
 
+    private val requestAuth = RequestAuth()
+
     fun auth(email: String, password: String){
 
         viewModelScope.launch {
@@ -33,6 +36,20 @@ class LoginViewModel : ViewModel() {
             _state.value = LoginState.IsLoading(true)
 
             try {
+
+                val response = withContext(Dispatchers.IO){
+                    requestAuth(email, password, "")
+                }
+
+            } catch (ex: Exception){
+                //_error.value = ex.message.toString()
+                _state.value = LoginState.Error(ex.message.toString())
+            } finally {
+                //_loader.value = false
+                _state.value = LoginState.IsLoading(false)
+            }
+
+            /* try {
                 // Add suspend on Api to wait for the response
                 val response = withContext(Dispatchers.IO){
                     Api.build().auth(LoginRequest(email, password))
@@ -60,7 +77,7 @@ class LoginViewModel : ViewModel() {
             }finally {
                 //_loader.value = false
                 _state.value = LoginState.IsLoading(false)
-            }
+            } */
         }
 
     }
