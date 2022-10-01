@@ -1,12 +1,12 @@
 package com.mitocode.marketapp.data
 
-import com.mitocode.marketapp.data.remote.UserServerDataSource
+import com.mitocode.marketapp.data.remote.UserRemoteDataSource
+import javax.inject.Inject
 
-class UserRepository {
-
-    val userServerDataSource = UserServerDataSource()
+class UserRepository @Inject
+constructor(private val userRemoteDataSource: UserRemoteDataSource) {
 
     suspend fun requestAuth(email: String, password: String, firebaseToken: String){
-        return userServerDataSource.auth(email, password, firebaseToken)
+        return userRemoteDataSource.auth(email, password, firebaseToken)
     }
 }

@@ -8,11 +8,15 @@ import com.mitocode.marketapp.data.Api
 import com.mitocode.marketapp.data.LoginRequest
 import com.mitocode.marketapp.data.UserRemote
 import com.mitocode.marketapp.usescases.RequestAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject
+constructor(private val requestAuth: RequestAuth): ViewModel() {
 
     /* private val _loader: MutableLiveData<Boolean> = MutableLiveData()
     val loader: LiveData<Boolean> = _loader
@@ -25,8 +29,6 @@ class LoginViewModel : ViewModel() {
 
     private val _state: MutableLiveData<LoginState> = MutableLiveData(LoginState.Init)
     val state: LiveData<LoginState> = _state
-
-    private val requestAuth = RequestAuth()
 
     fun auth(email: String, password: String){
 
