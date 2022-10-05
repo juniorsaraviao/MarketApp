@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mitocode.marketapp.data.Api
 import com.mitocode.marketapp.data.LoginRequest
 import com.mitocode.marketapp.data.UserRemote
+import com.mitocode.marketapp.domain.User
 import com.mitocode.marketapp.usescases.RequestAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +43,15 @@ constructor(private val requestAuth: RequestAuth): ViewModel() {
                 val response = withContext(Dispatchers.IO){
                     requestAuth(email, password, "")
                 }
+
+                response.fold(
+                    { error ->
+                        _state.value = LoginState.Error(error.toString())
+                    },
+                    { user ->
+                        _state.value = LoginState.Success(user)
+                    }
+                )
 
             } catch (ex: Exception){
                 //_error.value = ex.message.toString()
@@ -90,7 +100,7 @@ constructor(private val requestAuth: RequestAuth): ViewModel() {
         // more generic
         data class IsLoading(val isLoading: Boolean): LoginState()
         data class Error(val rawResponse: String): LoginState()
-        data class Success(val user: UserRemote): LoginState()
+        data class Success(val user: User): LoginState()
 
     }
 

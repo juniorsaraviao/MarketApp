@@ -1,6 +1,7 @@
 package com.mitocode.marketapp.data.remote
 
 import arrow.core.Either
+import com.mitocode.marketapp.Error
 import com.mitocode.marketapp.domain.User
 
 interface UserRemoteDataSource {

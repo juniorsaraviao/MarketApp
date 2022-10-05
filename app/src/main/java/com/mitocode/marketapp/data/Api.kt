@@ -22,7 +22,7 @@ object Api {
 
     interface ApiInterface {
         @POST("/api/usuarios/login")
-        suspend fun auth(@Body request: LoginRequest) : Response<WrappedResponse<UserRemote>>
+        suspend fun auth(@Body request: LoginRequest) : WrappedResponse<UserRemote>
 
         @GET("api/usuarios/obtener-generos")
         suspend fun getGenders(): Response<WrappedListResponse<GenderRemote>>

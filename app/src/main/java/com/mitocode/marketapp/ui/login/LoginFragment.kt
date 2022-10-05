@@ -8,15 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
-import com.mitocode.marketapp.data.Api
-import com.mitocode.marketapp.data.LoginRequest
 import com.mitocode.marketapp.databinding.FragmentLoginBinding
 import com.mitocode.marketapp.ui.common.toast
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginFragment : Fragment() {
 
@@ -89,8 +83,8 @@ class LoginFragment : Fragment() {
                 is LoginViewModel.LoginState.Error -> showError(state.rawResponse)
                 is LoginViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
                 is LoginViewModel.LoginState.Success -> {
-                    val userRemote = state.user
-                    requireContext().toast("Welcome ${userRemote.names} ${userRemote.surnames}")
+                    val user = state.user
+                    requireContext().toast("Welcome ${user.names} ${user.surnames}")
                 }
             }
 
