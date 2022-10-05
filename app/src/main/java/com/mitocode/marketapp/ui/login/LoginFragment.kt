@@ -10,8 +10,10 @@ import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.databinding.FragmentLoginBinding
 import com.mitocode.marketapp.ui.common.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
