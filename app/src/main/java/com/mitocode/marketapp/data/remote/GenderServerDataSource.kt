@@ -4,11 +4,12 @@ import arrow.core.Either
 import com.mitocode.marketapp.Error
 import com.mitocode.marketapp.data.Api
 import com.mitocode.marketapp.data.GenderRemote
+import com.mitocode.marketapp.data.RemoteService
 import com.mitocode.marketapp.domain.Gender
 import com.mitocode.marketapp.tryCall
 import javax.inject.Inject
 
-class GenderServerDataSource @Inject constructor(private val remoteService: Api.ApiInterface)
+class GenderServerDataSource @Inject constructor(private val remoteService: RemoteService)
     : GenderRemoteDataSource {
 
     override suspend fun populateGenders(): Either<Error, List<Gender>> = tryCall {

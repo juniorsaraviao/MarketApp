@@ -16,11 +16,11 @@ object Api {
     // UrlBase = https://marketapp2021.herokuapp.com/
     // Endpoint = api/usuarios/login
 
-    private val builder: Retrofit.Builder = Retrofit.Builder()
+    /* private val builder: Retrofit.Builder = Retrofit.Builder()
         .baseUrl("https://marketapp2021.herokuapp.com/")
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create()) */
 
-    interface ApiInterface {
+    /* interface ApiInterface {
         @POST("/api/usuarios/login")
         suspend fun auth(@Body request: LoginRequest) : WrappedResponse<UserRemote>
 
@@ -29,9 +29,9 @@ object Api {
 
         @POST("/api/usuarios/crear-cuenta")
         suspend fun registerAccount(@Body request: RegisterAccountRequest): WrappedResponse<UserRemote>
-    }
+    } */
 
-    fun build(): ApiInterface{
+    /* fun build(): ApiInterface{
         return builder.build().create(ApiInterface::class.java)
-    }
+    } */
 }
