@@ -1,9 +1,8 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.data
 
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import com.mitocode.marketapp.domain.User
 import retrofit2.HttpException
 import java.io.IOException
 

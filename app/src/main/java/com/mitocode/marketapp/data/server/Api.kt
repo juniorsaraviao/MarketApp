@@ -1,6 +1,6 @@
-package com.mitocode.marketapp.data
+package com.mitocode.marketapp.data.server
 
-import retrofit2.Call
+/* import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -34,4 +34,4 @@ object Api {
     /* fun build(): ApiInterface{
         return builder.build().create(ApiInterface::class.java)
     } */
-}
+} */

@@ -1,4 +1,4 @@
-package com.mitocode.marketapp.data
+package com.mitocode.marketapp.data.server
 
 data class WrappedResponse<T>(
     val message: String,

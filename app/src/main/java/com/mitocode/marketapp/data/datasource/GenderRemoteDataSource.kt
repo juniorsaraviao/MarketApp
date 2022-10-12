@@ -1,7 +1,7 @@
-package com.mitocode.marketapp.data.remote
+package com.mitocode.marketapp.data.datasource
 
 import arrow.core.Either
-import com.mitocode.marketapp.Error
+import com.mitocode.marketapp.data.Error
 import com.mitocode.marketapp.domain.Gender
 
 interface GenderRemoteDataSource {

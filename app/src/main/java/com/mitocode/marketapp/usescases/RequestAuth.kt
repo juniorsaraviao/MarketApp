@@ -1,8 +1,8 @@
 package com.mitocode.marketapp.usescases
 
 import arrow.core.Either
-import com.mitocode.marketapp.Error
-import com.mitocode.marketapp.data.UserRepository
+import com.mitocode.marketapp.data.Error
+import com.mitocode.marketapp.data.repository.UserRepository
 import com.mitocode.marketapp.domain.User
 import javax.inject.Inject
 

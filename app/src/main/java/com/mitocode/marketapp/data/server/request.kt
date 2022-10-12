@@ -1,4 +1,4 @@
-package com.mitocode.marketapp.data
+package com.mitocode.marketapp.data.server
 
 import com.google.gson.annotations.SerializedName
 

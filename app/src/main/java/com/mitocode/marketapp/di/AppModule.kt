@@ -1,11 +1,10 @@
 package com.mitocode.marketapp.di
 
-import com.mitocode.marketapp.data.Api
-import com.mitocode.marketapp.data.RemoteService
-import com.mitocode.marketapp.data.remote.GenderRemoteDataSource
-import com.mitocode.marketapp.data.remote.GenderServerDataSource
-import com.mitocode.marketapp.data.remote.UserRemoteDataSource
-import com.mitocode.marketapp.data.remote.UserServerDataSource
+import com.mitocode.marketapp.data.server.RemoteService
+import com.mitocode.marketapp.data.datasource.GenderRemoteDataSource
+import com.mitocode.marketapp.data.datasource.GenderServerDataSource
+import com.mitocode.marketapp.data.datasource.UserRemoteDataSource
+import com.mitocode.marketapp.data.datasource.UserServerDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -22,7 +21,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteService(): RemoteService{
+    fun provideRemoteService(): RemoteService {
         return Retrofit.Builder()
             .baseUrl("https://marketapp2021.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())

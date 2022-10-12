@@ -1,6 +1,7 @@
-package com.mitocode.marketapp.data
+package com.mitocode.marketapp.data.repository
 
-import com.mitocode.marketapp.data.remote.UserRemoteDataSource
+import com.mitocode.marketapp.data.server.RegisterAccountRequest
+import com.mitocode.marketapp.data.datasource.UserRemoteDataSource
 import javax.inject.Inject
 
 class UserRepository @Inject

@@ -1,4 +1,4 @@
-package com.mitocode.marketapp.data
+package com.mitocode.marketapp.data.server
 
 import retrofit2.http.Body
 import retrofit2.http.GET

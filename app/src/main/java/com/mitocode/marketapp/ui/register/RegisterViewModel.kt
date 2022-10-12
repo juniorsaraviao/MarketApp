@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitocode.marketapp.data.RegisterAccountRequest
-import com.mitocode.marketapp.data.UserRemote
+import com.mitocode.marketapp.data.server.RegisterAccountRequest
 import com.mitocode.marketapp.domain.Gender
 import com.mitocode.marketapp.domain.User
 import com.mitocode.marketapp.usescases.GetGender

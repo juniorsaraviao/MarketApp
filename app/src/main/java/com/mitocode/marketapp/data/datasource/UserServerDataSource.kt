@@ -1,12 +1,13 @@
-package com.mitocode.marketapp.data.remote
+package com.mitocode.marketapp.data.datasource
 
 import arrow.core.Either
-import arrow.core.left
-import arrow.core.right
-import com.mitocode.marketapp.Error
-import com.mitocode.marketapp.data.*
+import com.mitocode.marketapp.data.Error
+import com.mitocode.marketapp.data.server.LoginRequest
+import com.mitocode.marketapp.data.server.RegisterAccountRequest
+import com.mitocode.marketapp.data.server.RemoteService
+import com.mitocode.marketapp.data.server.UserRemote
+import com.mitocode.marketapp.data.tryCall
 import com.mitocode.marketapp.domain.User
-import com.mitocode.marketapp.tryCall
 import javax.inject.Inject
 
 class UserServerDataSource @Inject

@@ -1,4 +1,4 @@
-package com.mitocode.marketapp.examples
+package com.mitocode.marketapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

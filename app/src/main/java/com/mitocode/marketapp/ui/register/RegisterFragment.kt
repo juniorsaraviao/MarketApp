@@ -7,8 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import com.mitocode.marketapp.R
-import com.mitocode.marketapp.data.GenderRemote
-import com.mitocode.marketapp.data.RegisterAccountRequest
+import com.mitocode.marketapp.data.server.RegisterAccountRequest
 import com.mitocode.marketapp.databinding.FragmentRegisterBinding
 import com.mitocode.marketapp.domain.Gender
 import com.mitocode.marketapp.ui.common.toast

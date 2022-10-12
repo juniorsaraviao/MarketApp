@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitocode.marketapp.data.Api
-import com.mitocode.marketapp.data.LoginRequest
-import com.mitocode.marketapp.data.UserRemote
 import com.mitocode.marketapp.domain.User
 import com.mitocode.marketapp.usescases.RequestAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
