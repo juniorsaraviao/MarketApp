@@ -1,6 +1,8 @@
 package com.mitocode.marketapp.di
 
 import com.mitocode.marketapp.data.Api
+import com.mitocode.marketapp.data.remote.GenderRemoteDataSource
+import com.mitocode.marketapp.data.remote.GenderServerDataSource
 import com.mitocode.marketapp.data.remote.UserRemoteDataSource
 import com.mitocode.marketapp.data.remote.UserServerDataSource
 import dagger.Binds
@@ -32,4 +34,7 @@ abstract class AppDataModule {
 
     @Binds
     abstract fun bindUserRemoteDataSource(userServerDataSource: UserServerDataSource): UserRemoteDataSource
+
+    @Binds
+    abstract fun bindGenderRemoteDataSource(genderServerDataSource: GenderServerDataSource): GenderRemoteDataSource
 }

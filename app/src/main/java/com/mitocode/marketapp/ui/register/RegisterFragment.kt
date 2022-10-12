@@ -10,14 +10,17 @@ import com.mitocode.marketapp.R
 import com.mitocode.marketapp.data.GenderRemote
 import com.mitocode.marketapp.data.RegisterAccountRequest
 import com.mitocode.marketapp.databinding.FragmentRegisterBinding
+import com.mitocode.marketapp.domain.Gender
 import com.mitocode.marketapp.ui.common.toast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 // possible to remove onCreateView if the fragment_register is added in the constructor
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModels()
-    private var genders: List<GenderRemote> = listOf()
+    private var genders: List<Gender> = listOf()
     private var gender = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,9 +111,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 
-    private fun populateGenders(gendersRemote: List<GenderRemote>) = with(binding){
-        spGender.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner_gender, gendersRemote))
-        genders = gendersRemote
+    private fun populateGenders(gendersDomain: List<Gender>) = with(binding){
+        spGender.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner_gender, gendersDomain))
+        genders = gendersDomain
     }
 
 }

@@ -4,15 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitocode.marketapp.data.Api
-import com.mitocode.marketapp.data.GenderRemote
 import com.mitocode.marketapp.data.RegisterAccountRequest
 import com.mitocode.marketapp.data.UserRemote
+import com.mitocode.marketapp.domain.Gender
+import com.mitocode.marketapp.domain.User
+import com.mitocode.marketapp.usescases.GetGender
+import com.mitocode.marketapp.usescases.RegisterAccount
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RegisterViewModel : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(private val getGender: GetGender,
+                                            private val registerAccount: RegisterAccount
+)
+    : ViewModel() {
 
     private val _state = MutableLiveData<RegisterAccountState>(RegisterAccountState.Init)
     val state: LiveData<RegisterAccountState> = _state
@@ -24,19 +32,17 @@ class RegisterViewModel : ViewModel() {
 
             try {
                 val response = withContext(Dispatchers.IO){
-                    Api.build().getGenders()
+                    getGender()
                 }
 
-                if (response.isSuccessful){
-
-                    val responseData = response.body()
-                    responseData?.data?.let { genders ->
+                response.fold(
+                    { error ->
+                        _state.value = RegisterAccountState.Error(error.toString())
+                    },
+                    { genders ->
                         _state.value = RegisterAccountState.SuccessGenders(genders)
                     }
-
-                }else{
-                    _state.value = RegisterAccountState.Error(response.message().toString())
-                }
+                )
 
             }catch (ex: Exception){
                 _state.value = RegisterAccountState.Error(ex.message.toString())
@@ -54,24 +60,17 @@ class RegisterViewModel : ViewModel() {
 
             try {
                 val response = withContext(Dispatchers.IO){
-                    Api.build().registerAccount(request)
+                    registerAccount(request)
                 }
 
-                if (response.isSuccessful){
-
-                    val responseData = response.body()
-
-                    responseData?.let{
-                        if(it.success){
-                            _state.value = RegisterAccountState.SuccessRegister(it.data!!)
-                        }else{
-                            _state.value = RegisterAccountState.Error(it.message)
-                        }
+                response.fold(
+                    { error ->
+                        _state.value = RegisterAccountState.Error(error.toString())
+                    },
+                    { user ->
+                        _state.value = RegisterAccountState.SuccessRegister(user)
                     }
-
-                }else{
-                    _state.value = RegisterAccountState.Error(response.message().toString())
-                }
+                )
 
             }catch (ex: Exception){
                 _state.value = RegisterAccountState.Error(ex.message.toString())
@@ -87,8 +86,8 @@ class RegisterViewModel : ViewModel() {
         object Init : RegisterAccountState()
         data class IsLoading(val isLoading: Boolean): RegisterAccountState()
         data class Error(val rawResponse: String): RegisterAccountState()
-        data class SuccessGenders(val genders: List<GenderRemote>): RegisterAccountState()
-        data class SuccessRegister(val user: UserRemote): RegisterAccountState()
+        data class SuccessGenders(val genders: List<Gender>): RegisterAccountState()
+        data class SuccessRegister(val user: User): RegisterAccountState()
 
     }
 

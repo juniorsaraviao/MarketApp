@@ -25,10 +25,10 @@ object Api {
         suspend fun auth(@Body request: LoginRequest) : WrappedResponse<UserRemote>
 
         @GET("api/usuarios/obtener-generos")
-        suspend fun getGenders(): Response<WrappedListResponse<GenderRemote>>
+        suspend fun getGenders(): WrappedListResponse<GenderRemote>
 
         @POST("/api/usuarios/crear-cuenta")
-        suspend fun registerAccount(@Body request: RegisterAccountRequest): Response<WrappedResponse<UserRemote>>
+        suspend fun registerAccount(@Body request: RegisterAccountRequest): WrappedResponse<UserRemote>
     }
 
     fun build(): ApiInterface{

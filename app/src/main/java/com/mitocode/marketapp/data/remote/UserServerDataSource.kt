@@ -6,6 +6,7 @@ import arrow.core.right
 import com.mitocode.marketapp.data.Api
 import com.mitocode.marketapp.Error
 import com.mitocode.marketapp.data.LoginRequest
+import com.mitocode.marketapp.data.RegisterAccountRequest
 import com.mitocode.marketapp.data.UserRemote
 import com.mitocode.marketapp.domain.User
 import com.mitocode.marketapp.tryCall
@@ -18,6 +19,10 @@ constructor(private val remoteService: Api.ApiInterface) : UserRemoteDataSource 
         response?.let {
             it.data!!.toDomainModel()
         }!!
+    }
+
+    override suspend fun createAccount(request: RegisterAccountRequest): Either<Error, User> = tryCall {
+        remoteService.registerAccount(request).data!!.toDomainModel()
     }
 
     private fun UserRemote.toDomainModel(): User = User(uuid, names, surnames, email, phone, gender, numberDocument, type)
