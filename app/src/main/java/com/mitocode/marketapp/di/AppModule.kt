@@ -27,9 +27,16 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteService(): RemoteService {
+    @ApiUrl
+    fun provideApiUrl(): String {
+        return "https://marketapp2021.herokuapp.com/"
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteService(@ApiUrl apiUrl: String): RemoteService {
         return Retrofit.Builder()
-            .baseUrl("https://marketapp2021.herokuapp.com/")
+            .baseUrl(apiUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create()
