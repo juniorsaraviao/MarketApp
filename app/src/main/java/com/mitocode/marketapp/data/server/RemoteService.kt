@@ -2,6 +2,7 @@ package com.mitocode.marketapp.data.server
 
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface RemoteService {
@@ -13,4 +14,7 @@ interface RemoteService {
 
     @POST("/api/usuarios/crear-cuenta")
     suspend fun registerAccount(@Body request: RegisterAccountRequest): WrappedResponse<UserRemote>
+
+    @GET("/api/categorias")
+    suspend fun getCategories(@Header("Authorization") token: String): WrappedListResponse<CategoryRemote>
 }

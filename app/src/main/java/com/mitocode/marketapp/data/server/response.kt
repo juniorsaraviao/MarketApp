@@ -31,3 +31,12 @@ data class GenderRemote(
         return description
     }
 }
+
+data class CategoryRemote(
+    @SerializedName("uuid")
+    val uuid: String,
+    @SerializedName("nombre")
+    val name: String,
+    @SerializedName("cover")
+    val cover: String
+)
