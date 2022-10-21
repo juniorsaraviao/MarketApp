@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--add the fragment id to link the item-->
+    <item
+        android:id="@+id/categoriesFragment"
+        android:icon="@drawable/icon_menu"
+        android:title="@string/menu_categories"/>
+
+    <item
+        android:id="@+id/ordersFragment"
+        android:icon="@drawable/icon_menu"
+        android:title="@string/menu_order"/>
+</menu>

@@ -1,5 +1,6 @@
 package com.mitocode.marketapp.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.mitocode.marketapp.MenuMainHostActivity
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.databinding.FragmentLoginBinding
 import com.mitocode.marketapp.ui.common.toast
@@ -79,6 +81,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 is LoginViewModel.LoginState.Success -> {
                     val user = state.user
                     requireContext().toast("Welcome ${user.names} ${user.surnames}")
+                    val intent = Intent(requireContext(), MenuMainHostActivity::class.java)
+                    startActivity(intent)
                 }
             }
 

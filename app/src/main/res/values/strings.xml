@@ -44,4 +44,7 @@
     <string name="fragment_login_validation_email">Debe ingresar su correo electrónico</string>
     <string name="fragment_login_validation_password">Debe ingresar una contraseña</string>
     <string name="fragment_register_validation_terms_conditions">Debe aceptar los términos y condiciones</string>
+    <string name="activity_menu_title">Bienvenido</string>
+    <string name="menu_categories">Categories</string>
+    <string name="menu_order">Mis compras</string>
 </resources>
