@@ -69,4 +69,6 @@ dependencies {
     //Security Crypto - SharedPreferences
     implementation "androidx.security:security-crypto:1.0.0-alpha02"
 
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

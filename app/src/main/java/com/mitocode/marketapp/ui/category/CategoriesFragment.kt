@@ -13,9 +13,17 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private lateinit var binding: FragmentCategoriesBinding
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCategoriesBinding.bind(view)
+
+        setupAdapter()
+    }
+
+    private fun setupAdapter() = with(binding) {
+        categoryAdapter = CategoryAdapter()
+        rvCategories.adapter = categoryAdapter
     }
 }
