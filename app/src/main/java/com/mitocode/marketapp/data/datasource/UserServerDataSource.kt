@@ -17,7 +17,7 @@ constructor(private val remoteService: RemoteService, private val sharedPreferen
     override suspend fun auth(email: String, password: String, firebaseToken: String): Either<Error, User> = tryCall {
         val response = remoteService.auth(LoginRequest(email, password))
         response?.let {
-            sharedPreferences.edit().putString(Constants.TOKEN, it.token!!)
+            sharedPreferences.edit().putString(Constants.TOKEN, it.token!!).apply()
             it.data!!.toDomainModel()
         }!!
     }

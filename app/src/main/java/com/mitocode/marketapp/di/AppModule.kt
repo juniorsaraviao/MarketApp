@@ -4,11 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.mitocode.marketapp.data.datasource.*
 import com.mitocode.marketapp.data.server.RemoteService
-import com.mitocode.marketapp.data.datasource.GenderRemoteDataSource
-import com.mitocode.marketapp.data.datasource.GenderServerDataSource
-import com.mitocode.marketapp.data.datasource.UserRemoteDataSource
-import com.mitocode.marketapp.data.datasource.UserServerDataSource
 import com.mitocode.marketapp.util.Constants
 import dagger.Binds
 import dagger.Module
@@ -66,4 +63,7 @@ abstract class AppDataModule {
 
     @Binds
     abstract fun bindGenderRemoteDataSource(genderServerDataSource: GenderServerDataSource): GenderRemoteDataSource
+
+    @Binds
+    abstract fun bindCategoryRemoteDataSource(categoryServerDataSource: CategoryServerDataSource): CategoryRemoteDataSource
 }

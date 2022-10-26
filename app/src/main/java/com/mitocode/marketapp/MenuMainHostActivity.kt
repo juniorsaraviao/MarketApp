@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import com.mitocode.marketapp.databinding.ActivityMenuMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MenuMainHostActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuMainBinding
