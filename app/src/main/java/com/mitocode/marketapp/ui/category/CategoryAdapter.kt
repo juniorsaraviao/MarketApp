@@ -12,7 +12,9 @@ import com.squareup.picasso.Picasso
 // 1. where we get the information -> List
 
 // 3. Implement adapter methods
-class CategoryAdapter constructor(private var categories: List<Category> = listOf()): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CategoryAdapter constructor(
+    private var categories: List<Category> = listOf(),
+    val itemClicked: (Category)->Unit): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
 
     // 2. Define intern ViewHolder class
     // we need data to populate and where the data will be displayed (view)
@@ -24,6 +26,10 @@ class CategoryAdapter constructor(private var categories: List<Category> = listO
             Picasso.get().load(category.cover)
                 //.error(R.drawable.splash_footer)
                 .into(binding.imgCategory)
+
+            binding.root.setOnClickListener {
+                itemClicked(category)
+            }
         }
     }
 

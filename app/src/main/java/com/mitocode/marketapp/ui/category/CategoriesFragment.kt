@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.databinding.FragmentCategoriesBinding
 import com.mitocode.marketapp.ui.common.toast
@@ -58,7 +59,11 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
     }
 
     private fun setupAdapter() = with(binding) {
-        categoryAdapter = CategoryAdapter()
+        categoryAdapter = CategoryAdapter(){ category ->
+            // fragment that sends data
+            val directions = CategoriesFragmentDirections.actionCategoriesFragmentToProductFragment(category)
+            Navigation.findNavController(root).navigate(directions)
+        }
         rvCategories.adapter = categoryAdapter
     }
 }
