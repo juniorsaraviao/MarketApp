@@ -1,9 +1,10 @@
-package com.mitocode.marketapp
+package com.mitocode.marketapp.ui.product
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.mitocode.marketapp.R
 
 class ProductFragment : Fragment(R.layout.fragment_product) {
 
