@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
+import com.mitocode.marketapp.core.BaseFragment
 import com.mitocode.marketapp.databinding.FragmentCategoriesBinding
 import com.mitocode.marketapp.ui.common.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoriesFragment : Fragment(R.layout.fragment_categories) {
+class CategoriesFragment : BaseFragment(R.layout.fragment_categories) {
 
     private lateinit var binding: FragmentCategoriesBinding
     private lateinit var categoryAdapter: CategoryAdapter
@@ -62,7 +63,9 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         categoryAdapter = CategoryAdapter(){ category ->
             // fragment that sends data
             val directions = CategoriesFragmentDirections.actionCategoriesFragmentToProductFragment(category)
-            Navigation.findNavController(root).navigate(directions)
+            // Navigation.findNavController(root).navigate(directions)
+            // replacing with BaseFragment
+            navigateToDirections(directions)
         }
         rvCategories.adapter = categoryAdapter
     }

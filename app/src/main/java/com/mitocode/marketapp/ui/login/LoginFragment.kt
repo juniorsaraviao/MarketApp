@@ -10,13 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.mitocode.marketapp.MenuMainHostActivity
 import com.mitocode.marketapp.R
+import com.mitocode.marketapp.core.BaseFragment
 import com.mitocode.marketapp.databinding.FragmentLoginBinding
 import com.mitocode.marketapp.ui.common.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
 
 @AndroidEntryPoint
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
@@ -55,7 +56,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         tvCreateAccount.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_registerFragment)
+            //Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_registerFragment)
+            // replacing with BaseFragment
+            navigateToAction(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
