@@ -77,4 +77,7 @@ abstract class AppDataModule {
 
     @Binds
     abstract fun bindCategoryRemoteDataSource(categoryServerDataSource: CategoryServerDataSource): CategoryRemoteDataSource
+
+    @Binds
+    abstract fun bindProductRemoteDataSource(productServerDataSource: ProductServerDataSource): ProductRemoteDataSource
 }

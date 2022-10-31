@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -27,6 +28,17 @@ class ProductViewModel @Inject constructor(private val requestProducts: RequestP
 
                 val response = withContext(Dispatchers.IO){
                     requestProducts(categoryId)
+                }
+
+                response.collect(){
+                    it.fold(
+                        { error ->
+                            _state.value = ProductState.Error(error.toString())
+                        },
+                        { products ->
+                            _state.value = ProductState.Success(products)
+                        }
+                    )
                 }
 
             }catch (ex: Exception){
