@@ -27,5 +27,19 @@
         <argument
             android:name="category"
             app:argType="com.mitocode.marketapp.domain.Category" />
+        <action
+            android:id="@+id/action_productFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="com.mitocode.marketapp.DetailProductFragment"
+        android:label="fragment_detail_product"
+        tools:layout="@layout/fragment_detail_product" >
+        <argument
+            android:name="product"
+            app:argType="com.mitocode.marketapp.domain.Product"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

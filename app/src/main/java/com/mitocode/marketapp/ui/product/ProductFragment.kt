@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.databinding.FragmentProductBinding
@@ -26,7 +27,10 @@ class ProductFragment : Fragment(R.layout.fragment_product) {
     //private lateinit var productAdapter: ProductAdapter
     //another way for val:
     private val productAdapter: ProductAdapter by lazy {
-        ProductAdapter()
+        ProductAdapter() { product ->
+            val directions = ProductFragmentDirections.actionProductFragmentToDetailProductFragment(product)
+            Navigation.findNavController(binding.root).navigate(directions)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

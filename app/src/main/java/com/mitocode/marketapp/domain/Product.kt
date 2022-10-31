@@ -1,5 +1,7 @@
 package com.mitocode.marketapp.domain
 
+import java.io.Serializable
+
 class Product(
     val uuid: String,
     val description: String,
@@ -9,4 +11,4 @@ class Product(
     val stock: Int,
     val images: List<String>? = null,
     val amount: Int
-)
+): Serializable

@@ -10,7 +10,8 @@ import com.mitocode.marketapp.domain.Product
 import com.squareup.picasso.Picasso
 
 // don't need to add 'constructor'
-class ProductAdapter (var products: List<Product> = listOf())
+class ProductAdapter (var products: List<Product> = listOf(),
+    val itemClicked: (Product) -> Unit)
     : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     // intern class
@@ -24,6 +25,10 @@ class ProductAdapter (var products: List<Product> = listOf())
             tvPrice.text = "S/. ${product.price}"
 
             Picasso.get().load(product.images?.get(0)).error(R.drawable.empty).into(imgProduct)
+
+            root.setOnClickListener {
+                itemClicked(product)
+            }
         }
     }
 
