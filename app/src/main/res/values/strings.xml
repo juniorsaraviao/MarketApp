@@ -47,4 +47,5 @@
     <string name="activity_menu_title">Bienvenido</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_order">Mis compras</string>
+    <string name="fragment_detail_product_features">Características</string>
 </resources>
