@@ -11,9 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
+import com.mitocode.marketapp.core.BaseAdapter
 import com.mitocode.marketapp.core.BaseFragment
 import com.mitocode.marketapp.databinding.FragmentCategoriesBinding
+import com.mitocode.marketapp.databinding.ItemCategoryBinding
+import com.mitocode.marketapp.domain.Category
 import com.mitocode.marketapp.ui.common.toast
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.flow.collect
@@ -25,6 +29,30 @@ class CategoriesFragment : BaseFragment(R.layout.fragment_categories) {
     private lateinit var binding: FragmentCategoriesBinding
     private lateinit var categoryAdapter: CategoryAdapter
     private val viewModel: CategoryViewModel by viewModels()
+    // anonymous class
+    private val adapter: BaseAdapter<Category> = object : BaseAdapter<Category>(emptyList()){
+        override fun getViewHolder(parent: ViewGroup): BaseViewHolder<Category> {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
+            return object: BaseViewHolder<Category>(view){
+
+                private val binding: ItemCategoryBinding = ItemCategoryBinding.bind(itemView)
+
+                override fun bind(entity: Category) {
+                    Picasso.get().load(entity.cover).into(binding.imgCategory)
+
+                    binding.root.setOnClickListener {
+                        onItemSelected(entity)
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun onItemSelected(entity: Category) {
+        val directions = CategoriesFragmentDirections.actionCategoriesFragmentToProductFragment(entity)
+        navigateToDirections(directions)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +78,7 @@ class CategoriesFragment : BaseFragment(R.layout.fragment_categories) {
             is CategoryViewModel.CategoryState.Error -> requireContext().toast(state.rawResponse)
             is CategoryViewModel.CategoryState.IsLoading -> showProgress(state.isLoading)
             is CategoryViewModel.CategoryState.Success -> {
-                categoryAdapter.updateList(state.categories)
+                adapter.update(state.categories)
             }
         }
     }
@@ -60,13 +88,13 @@ class CategoriesFragment : BaseFragment(R.layout.fragment_categories) {
     }
 
     private fun setupAdapter() = with(binding) {
-        categoryAdapter = CategoryAdapter(){ category ->
+        /* categoryAdapter = CategoryAdapter(){ category ->
             // fragment that sends data
             val directions = CategoriesFragmentDirections.actionCategoriesFragmentToProductFragment(category)
             // Navigation.findNavController(root).navigate(directions)
             // replacing with BaseFragment
             navigateToDirections(directions)
-        }
-        rvCategories.adapter = categoryAdapter
+        } */
+        rvCategories.adapter = adapter
     }
 }
