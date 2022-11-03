@@ -81,6 +81,10 @@ class AppModule {
         AppDatabase::class.java,
         "marketDB"
     ).build()
+
+    @Provides
+    @Singleton
+    fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
 }
 
 @Module
