@@ -1,10 +1,14 @@
 package com.mitocode.marketapp.di
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.mitocode.marketapp.application.App
 import com.mitocode.marketapp.data.datasource.*
+import com.mitocode.marketapp.data.local.AppDatabase
 import com.mitocode.marketapp.data.server.RemoteService
 import com.mitocode.marketapp.util.Constants
 import dagger.Binds
@@ -63,6 +67,20 @@ class AppModule {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideApplication(@ApplicationContext app: Context): App {
+        return app as App
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application) = Room.databaseBuilder(
+        app,
+        AppDatabase::class.java,
+        "marketDB"
+    ).build()
 }
 
 @Module
