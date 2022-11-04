@@ -58,8 +58,13 @@ class CategoriesFragment : BaseFragment(R.layout.fragment_categories) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCategoriesBinding.bind(view)
 
+        init()
         setupAdapter()
         setupObservers()
+    }
+
+    private fun init() {
+        viewModel.onUiReady()
     }
 
     private fun setupObservers() {

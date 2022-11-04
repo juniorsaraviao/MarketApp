@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class RequestCategories @Inject constructor(private val categoryRepository: CategoryRepository){
 
-    suspend operator fun invoke() = categoryRepository.getCategories()
+    suspend operator fun invoke() = categoryRepository.requestCategories()
 }

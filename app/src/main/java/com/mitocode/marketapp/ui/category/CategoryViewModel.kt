@@ -3,18 +3,23 @@ package com.mitocode.marketapp.ui.category
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitocode.marketapp.domain.Category
+import com.mitocode.marketapp.usescases.GetCategories
 import com.mitocode.marketapp.usescases.RequestCategories
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject
-constructor(private val requestCategories: RequestCategories): ViewModel() {
+constructor(
+    private val requestCategories: RequestCategories,
+    getCategories: GetCategories
+): ViewModel() {
 
 //    Previous way to use state
 //    private val _state: MutableLiveData<CategoryState> = MutableLiveData(CategoryState.Init)
@@ -24,7 +29,18 @@ constructor(private val requestCategories: RequestCategories): ViewModel() {
     val state: StateFlow<CategoryState> = _state
 
     init {
+
         viewModelScope.launch {
+            getCategories()
+                .catch { error ->
+                    _state.value = CategoryState.Error(error.toString())
+                }
+                .collect{ categories ->
+                    _state.value = CategoryState.Success(categories)
+                }
+        }
+
+        /* viewModelScope.launch {
 
             _state.value = CategoryState.IsLoading(true)
 
@@ -49,6 +65,14 @@ constructor(private val requestCategories: RequestCategories): ViewModel() {
                 _state.value = CategoryState.IsLoading(false)
             }
 
+        } */
+    }
+
+    fun onUiReady(){
+        viewModelScope.launch {
+            _state.value = CategoryState.IsLoading(true)
+            requestCategories()
+            _state.value = CategoryState.IsLoading(false)
         }
     }
 

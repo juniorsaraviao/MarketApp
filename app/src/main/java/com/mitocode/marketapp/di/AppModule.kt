@@ -102,4 +102,7 @@ abstract class AppDataModule {
 
     @Binds
     abstract fun bindProductRemoteDataSource(productServerDataSource: ProductServerDataSource): ProductRemoteDataSource
+
+    @Binds
+    abstract fun bindCategoryLocalDataSource(categoryLocalDataSourceImp: CategoryLocalDataSourceImp): CategoryLocalDataSource
 }

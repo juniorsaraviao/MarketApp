@@ -19,10 +19,10 @@ interface CategoryDao {
     fun getAll(): Flow<List<DbCategory>>
 
     @Query("SELECT COUNT(uuid) FROM table_category")
-    fun categoriesCount(): Int
+    suspend fun categoriesCount(): Int
 
-    @Query("SELECT COUNT(uuid) FROM table_category WHERE uuid = :id")
-    fun findByUuid(id: String)
+    @Query("SELECT * FROM table_category WHERE uuid = :id")
+    fun findByUuid(id: String): Flow<DbCategory>
 
     @Update
     suspend fun updateCategory(dbCategory: DbCategory)

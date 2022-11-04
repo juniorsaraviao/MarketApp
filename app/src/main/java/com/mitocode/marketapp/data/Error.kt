@@ -25,7 +25,7 @@ suspend fun <T> tryCall(action: suspend () -> T): Either<Error, T> = try {
 }
 
 suspend fun <T> tryCallNoReturnData(action: suspend () -> T): Error? = try {
-    action().right()
+    action()
     null
 }catch (ex: Exception){
     ex.toError()
