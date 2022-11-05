@@ -42,4 +42,9 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/registerCategoryFragment"
+        android:name="com.mitocode.marketapp.RegisterCategoryFragment"
+        android:label="fragment_register_category"
+        tools:layout="@layout/fragment_register_category" />
 </navigation>

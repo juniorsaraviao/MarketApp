@@ -48,4 +48,9 @@
     <string name="menu_categories">Categories</string>
     <string name="menu_order">Mis compras</string>
     <string name="fragment_detail_product_features">Características</string>
+    <string name="menu_register_category">Registrar Cat.</string>
+    <string name="fragment_register_categories_name">Ingrese el nombre</string>
+    <string name="fragment_register_categories_camera">Camara</string>
+    <string name="fragment_register_categories_gallery">Galería</string>
+    <string name="fragment_register_categories_save">Guardar</string>
 </resources>

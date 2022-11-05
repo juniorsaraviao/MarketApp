@@ -10,4 +10,9 @@
         android:id="@+id/ordersFragment"
         android:icon="@drawable/icon_menu"
         android:title="@string/menu_order"/>
+
+    <item
+        android:id="@+id/registerCategoryFragment"
+        android:icon="@drawable/icon_menu"
+        android:title="@string/menu_register_category"/>
 </menu>
