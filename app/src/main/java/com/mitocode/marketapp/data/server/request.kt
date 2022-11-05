@@ -2,10 +2,10 @@ package com.mitocode.marketapp.data.server
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginRequest (
+data class LoginRequest(
     val email: String,
     val password: String,
-    val firebaseToken: String=""
+    val firebaseToken: String = ""
 )
 
 data class RegisterAccountRequest(
@@ -22,4 +22,10 @@ data class RegisterAccountRequest(
     @SerializedName("nroDoc")
     val numberDocument: String,
     val firebaseToken: String = ""
+)
+
+data class RegisterCategoryRequest(
+    @SerializedName("nombre")
+    val name: String,
+    val cover: String
 )

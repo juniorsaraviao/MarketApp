@@ -28,4 +28,10 @@ interface RemoteService {
         @Query("fechaInicio") fechaInicio: String,
         @Query("fechaFin") fechaFin: String
     )
+
+    @POST("/api/admin/crear-categoria")
+    suspend fun createCategory(
+        @Header("Authorization") token:String,
+        @Body request: RegisterCategoryRequest) : WrappedResponse<Nothing>
+
 }
