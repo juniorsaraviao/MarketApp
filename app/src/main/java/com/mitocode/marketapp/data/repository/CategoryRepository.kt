@@ -5,6 +5,8 @@ import com.mitocode.marketapp.data.datasource.CategoryRemoteDataSource
 import com.mitocode.marketapp.data.Error
 import com.mitocode.marketapp.data.datasource.CategoryLocalDataSource
 import com.mitocode.marketapp.data.local.DbCategory
+import com.mitocode.marketapp.data.server.RegisterCategoryRequest
+import com.mitocode.marketapp.data.server.WrappedResponse
 import com.mitocode.marketapp.data.tryCallNoReturnData
 import com.mitocode.marketapp.domain.Category
 import kotlinx.coroutines.flow.Flow
@@ -29,6 +31,12 @@ class CategoryRepository
                     categoryLocalDataSource.save(categoriesDomain.toLocalModel())
                 }
             )
+        }
+    }
+
+    suspend fun saveCategory(request: RegisterCategoryRequest): Flow<Either<Error, WrappedResponse<Nothing>>>{
+        return flow {
+            emit(categoryRemoteDataSource.saveCategory(request))
         }
     }
 
