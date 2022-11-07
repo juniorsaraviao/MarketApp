@@ -5,9 +5,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContract
@@ -22,18 +24,41 @@ import com.mitocode.marketapp.databinding.FragmentRegisterCategoryBinding
 import com.mitocode.marketapp.ui.common.gone
 import com.mitocode.marketapp.ui.common.toast
 import com.mitocode.marketapp.ui.common.visible
+import com.mitocode.marketapp.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 
 @AndroidEntryPoint
 class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
 
     private lateinit var binding: FragmentRegisterCategoryBinding
     private val viewModel: RegisterCategoryViewModel by viewModels()
+    private var imageBase64 = ""
 
     private val loadImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
+        val inputStream = uri?.let {
+            requireContext().contentResolver.openInputStream(it)
+        }
+        val imageBitmap = BitmapFactory.decodeStream(inputStream)
         binding.imgCategory.setImageURI(uri)
+
+        GlobalScope.launch {
+            withContext(Dispatchers.IO){
+                converterBase64(imageBitmap)
+            }
+        }
+    }
+
+    private fun converterBase64(imageBitmap: Bitmap){
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream)
+        val bytes = byteArrayOutputStream.toByteArray()
+        imageBase64 = Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
     /*private val cropResultContracts = object: ActivityResultContract<Any?, Uri?>(){
@@ -59,6 +84,12 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
             val data = result.data
             val imageBitmap = data?.extras?.get("data") as Bitmap
             binding.imgCategory.setImageBitmap(imageBitmap)
+
+            GlobalScope.launch {
+                withContext(Dispatchers.IO){
+                    converterBase64(imageBitmap)
+                }
+            }
         }
     }
 
@@ -116,7 +147,7 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
 
         btnSave.setOnClickListener {
             val name = edtNameCategory.text.toString()
-            viewModel.saveCategory(RegisterCategoryRequest(name, ""))
+            viewModel.saveCategory(RegisterCategoryRequest(name, "${Constants.FORMAT_BASE_64}${imageBase64}"))
         }
     }
 }
