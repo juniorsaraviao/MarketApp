@@ -11,5 +11,7 @@ interface CategoryLocalDataSource {
 
     suspend fun isEmpty(): Boolean
 
+    suspend fun count(): Int
+
     suspend fun save(dbCategories: List<DbCategory>): Error?
 }

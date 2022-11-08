@@ -14,6 +14,8 @@ class CategoryLocalDataSourceImp @Inject constructor(private val categoryDao: Ca
 
     override suspend fun isEmpty(): Boolean = categoryDao.categoriesCount() == 0
 
+    override suspend fun count(): Int = categoryDao.categoriesCount()
+
     override suspend fun save(dbCategories: List<DbCategory>): Error? = tryCallNoReturnData {
         categoryDao.insertCategories(dbCategories)
     }

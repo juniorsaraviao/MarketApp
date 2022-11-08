@@ -21,7 +21,7 @@ class CategoryRepository
     val categories = categoryLocalDataSource.categories
 
     suspend fun requestCategories(): Error? = tryCallNoReturnData {
-        if (categoryLocalDataSource.isEmpty()){
+        /*if (categoryLocalDataSource.isEmpty()){
             val categories = categoryRemoteDataSource.getCategories()
             categories.fold(
                 {
@@ -31,7 +31,23 @@ class CategoryRepository
                     categoryLocalDataSource.save(categoriesDomain.toLocalModel())
                 }
             )
-        }
+        }*/
+
+        val categories = categoryRemoteDataSource.getCategories()
+        categories.fold(
+            {
+                null
+            },
+            { categoriesDomain ->
+
+                val countRemote = categoriesDomain.size
+                val countLocal = categoryLocalDataSource.count()
+
+                if (countRemote > countLocal){
+                    categoryLocalDataSource.save(categoriesDomain.toLocalModel())
+                }
+            }
+        )
     }
 
     suspend fun saveCategory(request: RegisterCategoryRequest): Flow<Either<Error, WrappedResponse<Nothing>>>{
