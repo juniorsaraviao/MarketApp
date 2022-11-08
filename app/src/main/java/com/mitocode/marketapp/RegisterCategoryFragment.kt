@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.view.View
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -25,6 +26,8 @@ import com.mitocode.marketapp.ui.common.gone
 import com.mitocode.marketapp.ui.common.toast
 import com.mitocode.marketapp.ui.common.visible
 import com.mitocode.marketapp.util.Constants
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,8 +42,9 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
     private lateinit var binding: FragmentRegisterCategoryBinding
     private val viewModel: RegisterCategoryViewModel by viewModels()
     private var imageBase64 = ""
+    private lateinit var cropActivityResultLauncher: ActivityResultLauncher<Any?>
 
-    private val loadImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
+    /* private val loadImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         val inputStream = uri?.let {
             requireContext().contentResolver.openInputStream(it)
         }
@@ -52,7 +56,7 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
                 converterBase64(imageBitmap)
             }
         }
-    }
+    }*/
 
     private fun converterBase64(imageBitmap: Bitmap){
         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -61,16 +65,16 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
         imageBase64 = Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
-    /*private val cropResultContracts = object: ActivityResultContract<Any?, Uri?>(){
+    private val cropResultContracts = object: ActivityResultContract<Any?, Uri?>(){
         override fun createIntent(context: Context, input: Any?): Intent {
-            return CropImage
+            return CropImage.activity().setAspectRatio(16,9).getIntent(requireContext())
         }
 
         override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-            TODO("Not yet implemented")
+            return CropImage.getActivityResult(intent)?.uri
         }
 
-    }*/
+    }
 
     private var cameraPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
         when {
@@ -83,19 +87,56 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
         if (result.resultCode == RESULT_OK){
             val data = result.data
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.imgCategory.setImageBitmap(imageBitmap)
+
+            val uri = getImageUriFromBitmap(requireContext(), imageBitmap)
+            cropImage(uri)
+
+            /*binding.imgCategory.setImageBitmap(imageBitmap)
 
             GlobalScope.launch {
                 withContext(Dispatchers.IO){
                     converterBase64(imageBitmap)
                 }
-            }
+            }*/
         }
+    }
+
+    private fun cropImage(uri: Uri?){
+        CropImage.activity(uri)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .setAspectRatio(16,9)
+            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            .start(requireContext(), this)
+    }
+
+    private fun getImageUriFromBitmap(context: Context, imageBitmap: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, imageBitmap, "Image", null)
+        return Uri.parse(path.toString())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterCategoryBinding.bind(view)
+
+        cropActivityResultLauncher = registerForActivityResult(cropResultContracts){
+
+            it?.let { uri ->
+                val inputStream = uri?.let { thisUri ->
+                    requireContext().contentResolver.openInputStream(thisUri)
+                }
+                val imageBitmap = BitmapFactory.decodeStream(inputStream)
+                binding.imgCategory.setImageURI(uri)
+
+                GlobalScope.launch {
+                    withContext(Dispatchers.IO){
+                        converterBase64(imageBitmap)
+                    }
+                }
+            }
+
+        }
 
         events()
         setupObservables()
@@ -128,13 +169,24 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
     }
 
     // Deprecated
-    /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
+            val uri = CropImage.getActivityResult(data).uri
+            val inputStream = uri?.let{
+                requireContext().contentResolver.openInputStream(it)
+            }
+            val imageBitmap = BitmapFactory.decodeStream(inputStream)
 
-        if (resultCode == RESULT_OK){
+            binding.imgCategory.setImageBitmap(imageBitmap)
 
+            GlobalScope.launch {
+                withContext(Dispatchers.IO){
+                    converterBase64(imageBitmap)
+                }
+            }
         }
-    } */
+    }
 
     private fun events() = with(binding) {
         btnCamera.setOnClickListener {
@@ -142,7 +194,8 @@ class RegisterCategoryFragment : Fragment(R.layout.fragment_register_category) {
         }
 
         btnGallery.setOnClickListener {
-            loadImage.launch("image/*")
+            cropActivityResultLauncher.launch(null)
+            //loadImage.launch("image/*")
         }
 
         btnSave.setOnClickListener {
