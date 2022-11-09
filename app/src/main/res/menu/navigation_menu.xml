@@ -15,4 +15,9 @@
         android:id="@+id/registerCategoryFragment"
         android:icon="@drawable/icon_menu"
         android:title="@string/menu_register_category"/>
+
+    <item
+        android:id="@+id/mapsFragment"
+        android:icon="@drawable/icon_menu"
+        android:title="@string/menu_maps"/>
 </menu>
