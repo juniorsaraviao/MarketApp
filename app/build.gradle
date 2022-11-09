@@ -83,4 +83,7 @@ dependencies {
 
     //Cropper
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    //Maps
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
 }

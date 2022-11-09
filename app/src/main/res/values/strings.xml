@@ -53,4 +53,5 @@
     <string name="fragment_register_categories_camera">Camara</string>
     <string name="fragment_register_categories_gallery">Galería</string>
     <string name="fragment_register_categories_save">Guardar</string>
+    <string name="menu_maps">Mapas</string>
 </resources>
