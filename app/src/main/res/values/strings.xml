@@ -54,4 +54,7 @@
     <string name="fragment_register_categories_gallery">Galería</string>
     <string name="fragment_register_categories_save">Guardar</string>
     <string name="menu_maps">Mapas</string>
+    <string name="message_version">Hemos detectado que se encuentra disponible una nueva versión de la aplicación. Te recomendamos actualizarla ya que trae muchas novedades y mejoras. Solo te tomará unos minutos</string>
+    <string name="dialog_version_later">Más tarde</string>
+    <string name="dialog_version_update">Actualizar</string>
 </resources>

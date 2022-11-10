@@ -1,16 +1,20 @@
 package com.mitocode.marketapp.ui.login
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.mitocode.marketapp.BuildConfig
 import com.mitocode.marketapp.MenuMainHostActivity
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.core.BaseFragment
+import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentLoginBinding
 import com.mitocode.marketapp.ui.common.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,9 +35,44 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         binding.edtEmail.setText("jledesma2509@gmail.com")
         binding.edtPassword.setText("12345")
 
+        init()
         events()
-
         setupObserves()
+    }
+
+    private fun init() {
+
+        val versionApp = BuildConfig.VERSION_CODE
+        val versionName = BuildConfig.VERSION_NAME
+
+        val versionServer = 1
+        if (versionApp < versionServer){
+            createDialogVersion().show()
+        }
+    }
+
+    private fun createDialogVersion(): AlertDialog {
+
+        val bindingAlert = DialogVersionBinding.inflate(LayoutInflater.from(requireContext()))
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(bindingAlert.root)
+
+        val alertDialog = builder.create()
+        alertDialog.setCancelable(false)
+
+        bindingAlert.btnUpdate.setOnClickListener {
+            alertDialog.dismiss()
+            val url = "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+
+        bindingAlert.btnLater.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        return alertDialog
     }
 
     private fun events() = with(binding) {
