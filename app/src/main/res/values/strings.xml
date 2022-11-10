@@ -57,4 +57,7 @@
     <string name="message_version">Hemos detectado que se encuentra disponible una nueva versión de la aplicación. Te recomendamos actualizarla ya que trae muchas novedades y mejoras. Solo te tomará unos minutos</string>
     <string name="dialog_version_later">Más tarde</string>
     <string name="dialog_version_update">Actualizar</string>
+    <string name="fragment_detail_minus">-</string>
+    <string name="fragment_detail_plus">+</string>
+    <string name="fragment_detail_add">Agregar</string>
 </resources>
