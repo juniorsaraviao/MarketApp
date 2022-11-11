@@ -18,3 +18,20 @@ data class DbCategory(
     @ColumnInfo(name = "cover")
     val cover: String
 )
+
+
+@Entity(tableName = "table_purchased_product")
+data class DbPurchasedProduct(
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "uuid")
+    @NotNull
+    val uuid: String,
+    @ColumnInfo(name = "description")
+    val description: String,
+    @ColumnInfo(name = "price")
+    val price: Double,
+    @ColumnInfo(name = "image")
+    val image: String,
+    @ColumnInfo(name = "amount")
+    val amount: Int
+)
