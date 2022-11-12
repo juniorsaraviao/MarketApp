@@ -2,10 +2,8 @@ package com.mitocode.marketapp.data.repository
 
 import com.mitocode.marketapp.data.Error
 import com.mitocode.marketapp.data.datasource.PurchasedProductLocalDataSource
-import com.mitocode.marketapp.data.local.DbCategory
 import com.mitocode.marketapp.data.local.DbPurchasedProduct
 import com.mitocode.marketapp.data.tryCallNoReturnData
-import com.mitocode.marketapp.domain.Category
 import com.mitocode.marketapp.domain.PurchasedProduct
 import javax.inject.Inject
 
@@ -27,5 +25,6 @@ class PurchasedProductRepository
         purchasedProductLocalDataSource.delete(purchasedProduct.toLocalModel())
     }
 
-    private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(uuid, description, price, image, amount)
+    private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(uuid =  uuid, description = description, price = price,
+        image = image, amount = amount, total = price*amount)
 }

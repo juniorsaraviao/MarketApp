@@ -22,7 +22,8 @@ data class DbCategory(
 
 @Entity(tableName = "table_purchased_product")
 data class DbPurchasedProduct(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    val purchase_id: Int = 0,
     @ColumnInfo(name = "uuid")
     @NotNull
     val uuid: String,
@@ -33,5 +34,7 @@ data class DbPurchasedProduct(
     @ColumnInfo(name = "image")
     val image: String,
     @ColumnInfo(name = "amount")
-    val amount: Int
+    val amount: Int,
+    @ColumnInfo(name = "total")
+    val total: Double
 )

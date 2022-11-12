@@ -5,5 +5,6 @@ class Constants {
         val TOKEN = "token"
         val PREFERENCE_TOKEN = "preference_token"
         val FORMAT_BASE_64 = "data:image/png;base64,"
+        val detail_product_added = "Producto agregado exitósamente"
     }
 }

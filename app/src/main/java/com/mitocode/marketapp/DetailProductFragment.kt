@@ -52,9 +52,11 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             if (number == 0){
                 btnMinusItem.isEnabled = false
                 btnMinusItem.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_color))
+                btnAdd.isEnabled = false
             }else{
                 btnMinusItem.isEnabled = true
                 btnMinusItem.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_color))
+                btnAdd.isEnabled = true
             }
         }
     }
@@ -121,7 +123,10 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             DetailProductViewModel.RegisterPurchaseState.Init -> Unit
             is DetailProductViewModel.RegisterPurchaseState.Error -> requireContext().toast(state.rawResponse)
             is DetailProductViewModel.RegisterPurchaseState.IsLoading -> handlerLoading(state.isLoading)
-            is DetailProductViewModel.RegisterPurchaseState.Success -> requireContext().toast(state.response)
+            is DetailProductViewModel.RegisterPurchaseState.Success -> {
+                requireContext().toast(state.response)
+                requireActivity().onBackPressed()
+            }
         }
     }
 

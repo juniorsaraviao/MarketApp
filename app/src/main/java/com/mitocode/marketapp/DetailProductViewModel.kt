@@ -5,6 +5,7 @@ import com.mitocode.marketapp.data.server.RegisterCategoryRequest
 import com.mitocode.marketapp.domain.PurchasedProduct
 import com.mitocode.marketapp.usescases.RegisterCategory
 import com.mitocode.marketapp.usescases.RegisterProduct
+import com.mitocode.marketapp.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +47,7 @@ class DetailProductViewModel @Inject constructor(private val registerProduct: Re
                 _state.value = RegisterPurchaseState.Error(e.message.toString())
             }finally {
                 _state.value = RegisterPurchaseState.IsLoading(false)
+                _state.value = RegisterPurchaseState.Success(Constants.detail_product_added)
             }
         }
 
