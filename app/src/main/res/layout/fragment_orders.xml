@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:text="@string/fragment_orders_compras"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="@string/fragment_orders_compras"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,10 +49,10 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="71dp"
-        android:background="@color/main"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8">
@@ -62,10 +62,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:text="@string/fragment_order_total"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="@string/fragment_order_total"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -75,10 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:textStyle="bold"
+            android:text="S/. 7,800"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="S/. 7,800"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -91,9 +91,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:listitem="@layout/item_purchased_order" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
