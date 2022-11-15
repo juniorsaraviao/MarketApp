@@ -27,6 +27,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     private lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
+    private var totalAmount: Double = 0.0
 
     private val adapter: BaseAdapter<PurchasedProduct> = object : BaseAdapter<PurchasedProduct>(emptyList()){
         override fun getViewHolder(parent: ViewGroup): BaseViewHolder<PurchasedProduct> {
@@ -75,6 +76,10 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             is OrdersViewModel.OrdersState.IsLoading -> showProgress(state.isLoading)
             is OrdersViewModel.OrdersState.Success -> {
                 adapter.update(state.purchasedProducts)
+            }
+            is OrdersViewModel.OrdersState.Amount -> {
+                totalAmount += state.amount
+                binding.tvTotalAmount.text = "S/. $totalAmount"
             }
         }
     }

@@ -29,6 +29,7 @@ constructor(getPurchasedProducts: GetPurchasedProducts): ViewModel() {
                 }
                 .collect{ purchasedProducts ->
                     _state.value = OrdersState.Success(purchasedProducts)
+                    _state.value = OrdersState.Amount(purchasedProducts.sumOf { it.total })
                 }
         }
     }
@@ -38,5 +39,6 @@ constructor(getPurchasedProducts: GetPurchasedProducts): ViewModel() {
         data class IsLoading(val isLoading: Boolean): OrdersState()
         data class Success(val purchasedProducts: List<PurchasedProduct>): OrdersState()
         data class Error(val rawResponse: String): OrdersState()
+        data class Amount(val amount: Double): OrdersState()
     }
 }
