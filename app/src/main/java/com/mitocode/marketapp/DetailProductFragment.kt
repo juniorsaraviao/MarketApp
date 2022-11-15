@@ -103,7 +103,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                 adapter.update(product.images!!)
 
                 detailProductViewModel.savePurchase(PurchasedProduct(product.uuid,
-                    product.description, product.price, product.images[0], tvQuantity.text.toString().toInt()))
+                    product.description, product.price, product.images[0], tvQuantity.text.toString().toInt(), product.price * product.amount))
             }
         }
     }

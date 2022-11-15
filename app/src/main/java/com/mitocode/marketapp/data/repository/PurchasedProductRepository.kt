@@ -26,5 +26,5 @@ class PurchasedProductRepository
     }
 
     private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(uuid =  uuid, description = description, price = price,
-        image = image, amount = amount, total = price*amount)
+        image = image, amount = amount, total = total)
 }
