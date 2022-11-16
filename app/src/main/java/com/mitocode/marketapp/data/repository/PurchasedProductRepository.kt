@@ -25,6 +25,6 @@ class PurchasedProductRepository
         purchasedProductLocalDataSource.delete(purchasedProduct.toLocalModel())
     }
 
-    private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(uuid =  uuid, description = description, price = price,
+    private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(purchase_id = purchase_id, uuid =  uuid, description = description, price = price,
         image = image, amount = amount, total = total)
 }

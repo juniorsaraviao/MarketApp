@@ -27,7 +27,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     private lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
-    private var totalAmount: Double = 0.0
+    private val formatNumber = "%,.2f"
 
     private val adapter: BaseAdapter<PurchasedProduct> = object : BaseAdapter<PurchasedProduct>(emptyList()){
         override fun getViewHolder(parent: ViewGroup): BaseViewHolder<PurchasedProduct> {
@@ -40,7 +40,11 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                     Picasso.get().load(entity.image).error(R.drawable.empty).into(binding.imgPurchase)
                     tvPurchaseDescription.text = entity.description
                     tvAmount.text = entity.amount.toString()
-                    tvTotal.text = "S/. ${entity.total}"
+                    tvTotal.text = "S/. ${formatNumber.format(entity.total)}"
+
+                    imgDelete.setOnClickListener {
+                        viewModel.deleteProduct(entity)
+                    }
                 }
 
             }
@@ -83,8 +87,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 adapter.update(state.purchasedProducts)
             }
             is OrdersViewModel.OrdersState.Amount -> {
-                totalAmount += state.amount
-                binding.tvTotalAmount.text = "S/. $totalAmount"
+                binding.tvTotalAmount.text = "S/. ${formatNumber.format(state.amount)}"
             }
         }
     }

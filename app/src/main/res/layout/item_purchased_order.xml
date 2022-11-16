@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/tvPurchaseDescription"
-        android:layout_width="195dp"
-        android:layout_height="36dp"
+        android:layout_width="184dp"
+        android:layout_height="46dp"
         android:text="HP Pavilion Gaming TG01-105bla Intel Core i5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/imgDelete"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_edit" />
@@ -28,6 +29,7 @@
         android:id="@+id/imgDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_remove_item" />
