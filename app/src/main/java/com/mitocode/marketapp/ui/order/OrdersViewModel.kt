@@ -15,13 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject
-constructor(getPurchasedProducts: GetPurchasedProducts): ViewModel() {
+constructor(private val getPurchasedProducts: GetPurchasedProducts): ViewModel() {
 
     private val _state: MutableStateFlow<OrdersState> = MutableStateFlow(OrdersState.Init)
     val state: StateFlow<OrdersState> = _state
 
-    init {
-
+    fun loadPurchasedProducts(){
         viewModelScope.launch {
             getPurchasedProducts()
                 .catch { error ->

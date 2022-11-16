@@ -18,13 +18,13 @@ class PurchasedProductLocalDataSourceImp @Inject constructor(private val purchas
     }
 
     override suspend fun update(dbPurchasedProduct: DbPurchasedProduct): Error? = tryCallNoReturnData{
-        purchasedProductDao.updateCategory(dbPurchasedProduct)
+        purchasedProductDao.updatePurchasedProduct(dbPurchasedProduct)
     }
 
     override suspend fun delete(dbPurchasedProduct: DbPurchasedProduct): Error? = tryCallNoReturnData {
-        purchasedProductDao.deleteCategory(dbPurchasedProduct)
+        purchasedProductDao.deletePurchasedProduct(dbPurchasedProduct)
     }
 
     private fun List<DbPurchasedProduct>.toDomainModel() : List<PurchasedProduct> = map{ it.toDomainModel() }
-    private fun DbPurchasedProduct.toDomainModel() : PurchasedProduct = PurchasedProduct(uuid, description, price, image, amount, total)
+    private fun DbPurchasedProduct.toDomainModel() : PurchasedProduct = PurchasedProduct(purchase_id, uuid, description, price, image, amount, total)
 }

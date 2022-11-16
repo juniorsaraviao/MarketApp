@@ -102,8 +102,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                 Picasso.get().load(product.images?.get(0)).error(R.drawable.empty).into(imgDetail)
                 adapter.update(product.images!!)
 
-                detailProductViewModel.savePurchase(PurchasedProduct(product.uuid,
-                    product.description, product.price, product.images[0], tvQuantity.text.toString().toInt(), product.price * product.amount))
+                detailProductViewModel.savePurchase(PurchasedProduct(0, product.uuid,
+                    product.description, product.price, product.images[0], tvQuantity.text.toString().toInt(), product.price * tvQuantity.text.toString().toInt()))
             }
         }
     }

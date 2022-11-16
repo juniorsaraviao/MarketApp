@@ -37,7 +37,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 private val binding: ItemPurchasedOrderBinding = ItemPurchasedOrderBinding.bind(itemView)
 
                 override fun bind(entity: PurchasedProduct) = with(binding) {
-                    Picasso.get().load(entity.image).into(binding.imgPurchase)
+                    Picasso.get().load(entity.image).error(R.drawable.empty).into(binding.imgPurchase)
                     tvPurchaseDescription.text = entity.description
                     tvAmount.text = entity.amount.toString()
                     tvTotal.text = "S/. ${entity.total}"
@@ -51,8 +51,13 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentOrdersBinding.bind(view)
+        init()
         setupAdapter()
         setupObservers()
+    }
+
+    private fun init() {
+        viewModel.loadPurchasedProducts()
     }
 
     private fun setupObservers() {

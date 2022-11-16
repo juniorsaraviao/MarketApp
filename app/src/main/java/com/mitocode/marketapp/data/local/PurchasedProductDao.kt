@@ -13,8 +13,8 @@ interface PurchasedProductDao {
     fun getAll(): Flow<List<DbPurchasedProduct>>
 
     @Update
-    suspend fun updateCategory(DbPurchasedProduct: DbPurchasedProduct)
+    suspend fun updatePurchasedProduct(dbPurchasedProduct: DbPurchasedProduct)
 
     @Delete
-    suspend fun deleteCategory(DbPurchasedProduct: DbPurchasedProduct)
+    suspend fun deletePurchasedProduct(dbPurchasedProduct: DbPurchasedProduct)
 }
