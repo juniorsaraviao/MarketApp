@@ -7,6 +7,7 @@ import com.mitocode.marketapp.domain.PurchasedProduct
 import com.mitocode.marketapp.ui.category.CategoryViewModel
 import com.mitocode.marketapp.usescases.DeletePurchasedProduct
 import com.mitocode.marketapp.usescases.GetPurchasedProducts
+import com.mitocode.marketapp.usescases.UpdatePurchasedProduct
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OrdersViewModel @Inject
 constructor(private val getPurchasedProducts: GetPurchasedProducts,
-private val deletePurchasedProduct: DeletePurchasedProduct): ViewModel() {
+private val deletePurchasedProduct: DeletePurchasedProduct,
+private val updatePurchasedProduct: UpdatePurchasedProduct): ViewModel() {
 
     private val _state: MutableStateFlow<OrdersState> = MutableStateFlow(OrdersState.Init)
     val state: StateFlow<OrdersState> = _state
@@ -32,6 +34,15 @@ private val deletePurchasedProduct: DeletePurchasedProduct): ViewModel() {
                     _state.value = OrdersState.Success(purchasedProducts)
                     _state.value = OrdersState.Amount(purchasedProducts.sumOf { it.total })
                 }
+        }
+    }
+
+    fun updateProduct(purchasedProduct: PurchasedProduct){
+        viewModelScope.launch {
+            _state.value = OrdersState.IsLoading(true)
+            updatePurchasedProduct(purchasedProduct)
+            loadPurchasedProducts()
+            _state.value = OrdersState.IsLoading(false)
         }
     }
 

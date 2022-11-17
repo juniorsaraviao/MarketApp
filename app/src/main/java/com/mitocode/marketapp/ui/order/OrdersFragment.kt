@@ -1,16 +1,23 @@
 package com.mitocode.marketapp.ui.order
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.core.BaseAdapter
+import com.mitocode.marketapp.databinding.DialogUpdatePurchaseBinding
+import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentOrdersBinding
 import com.mitocode.marketapp.databinding.ItemCategoryBinding
 import com.mitocode.marketapp.databinding.ItemPurchasedOrderBinding
@@ -44,6 +51,10 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
                     imgDelete.setOnClickListener {
                         viewModel.deleteProduct(entity)
+                    }
+
+                    imgEdit.setOnClickListener {
+                        createDialogVersion(entity).show()
                     }
                 }
 
@@ -94,5 +105,36 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     private fun showProgress(visibility: Boolean) = with(binding) {
         orderProgressBar.visibility = if (visibility) View.VISIBLE else View.GONE
+    }
+
+    private fun createDialogVersion(purchasedProduct: PurchasedProduct): AlertDialog {
+
+        val bindingAlert = DialogUpdatePurchaseBinding.inflate(LayoutInflater.from(requireContext()))
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(bindingAlert.root)
+
+        val alertDialog = builder.create()
+        alertDialog.setCancelable(false)
+
+        bindingAlert.edtAmount.setText(purchasedProduct.amount.toString())
+
+        bindingAlert.btnUpdate.setOnClickListener {
+            val amount = bindingAlert.edtAmount.text.toString().toInt()
+            if (amount > 0){
+                purchasedProduct.amount = amount
+                purchasedProduct.total = amount*purchasedProduct.price
+                viewModel.updateProduct(purchasedProduct)
+                alertDialog.dismiss()
+            }else{
+                requireContext().toast("Cantidad ingresada no valida")
+            }
+
+        }
+
+        bindingAlert.btnClose.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        return alertDialog
     }
 }
