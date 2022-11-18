@@ -15,14 +15,17 @@ class ProductServerDataSource @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : ProductRemoteDataSource {
 
+    private lateinit var categoryId: String
+
     override suspend fun getProduct(categoryId: String): Either<Error, List<Product>> = tryCall {
+        this.categoryId = categoryId
         val token = sharedPreferences.getString(Constants.TOKEN, "") ?: ""
         val response = remoteService.getProducts("Bearer $token", categoryId)
         response?.let {
             it.data!!.toDomainModel()
         }!!
     }
-}
 
-private fun List<ProductRemote>.toDomainModel(): List<Product> = map { it.toDomainModel() }
-private fun ProductRemote.toDomainModel(): Product = Product(uuid, description, code, features, price, stock, images, amount)
+    private fun List<ProductRemote>.toDomainModel(): List<Product> = map { it.toDomainModel() }
+    private fun ProductRemote.toDomainModel(): Product = Product(categoryId, uuid, description, code, features, price, stock, images, amount)
+}

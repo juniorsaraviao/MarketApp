@@ -80,11 +80,15 @@ class AppModule {
         app,
         AppDatabase::class.java,
         "marketDB"
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton
     fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
+
+    @Provides
+    @Singleton
+    fun providePurchasedProductDao(db: AppDatabase) = db.purchasedProductDao()
 }
 
 @Module
@@ -105,4 +109,7 @@ abstract class AppDataModule {
 
     @Binds
     abstract fun bindCategoryLocalDataSource(categoryLocalDataSourceImp: CategoryLocalDataSourceImp): CategoryLocalDataSource
+
+    @Binds
+    abstract fun bindPurchasedProductLocalDataSource(purchasedProductLocalDataSourceImp: PurchasedProductLocalDataSourceImp): PurchasedProductLocalDataSource
 }

@@ -60,4 +60,10 @@
     <string name="fragment_detail_minus">-</string>
     <string name="fragment_detail_plus">+</string>
     <string name="fragment_detail_add">Agregar</string>
+    <string name="fragment_order_total">TOTAL A PAGAR</string>
+    <string name="fragment_orders_check_in">CHECK IN</string>
+    <string name="fragment_orders_compras">MIS COMPRAS</string>
+    <string name="dialog_update_close">Salir</string>
+    <string name="dialog_updater_title">Actualiza tu Producto</string>
+    <string name="dialog_update_amount">Cantidad</string>
 </resources>

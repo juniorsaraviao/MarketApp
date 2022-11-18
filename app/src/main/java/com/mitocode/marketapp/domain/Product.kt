@@ -3,6 +3,7 @@ package com.mitocode.marketapp.domain
 import java.io.Serializable
 
 class Product(
+    val categoryId: String,
     val uuid: String,
     val description: String,
     val code: String,
