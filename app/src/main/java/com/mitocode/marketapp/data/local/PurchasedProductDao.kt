@@ -17,4 +17,7 @@ interface PurchasedProductDao {
 
     @Delete
     suspend fun deletePurchasedProduct(dbPurchasedProduct: DbPurchasedProduct)
+
+    @Delete
+    suspend fun deleteAll(dbPurchasedProducts: List<DbPurchasedProduct>)
 }

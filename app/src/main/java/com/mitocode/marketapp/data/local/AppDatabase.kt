@@ -3,7 +3,7 @@ package com.mitocode.marketapp.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [DbCategory::class, DbPurchasedProduct::class], version = 5, exportSchema = false)
+@Database(entities = [DbCategory::class, DbPurchasedProduct::class], version = 8, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun purchasedProductDao(): PurchasedProductDao

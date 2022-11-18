@@ -25,6 +25,12 @@ class PurchasedProductRepository
         purchasedProductLocalDataSource.delete(purchasedProduct.toLocalModel())
     }
 
+    suspend fun deleteAll(purchasedProducts: List<PurchasedProduct>): Error? = tryCallNoReturnData {
+        purchasedProductLocalDataSource.deleteAll(purchasedProducts.toLocalModel())
+    }
+
     private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(purchase_id = purchase_id, uuid =  uuid, description = description, price = price,
         image = image, amount = amount, total = total)
+
+    private fun List<PurchasedProduct>.toLocalModel() : List<DbPurchasedProduct> = map{ it.toLocalModel() }
 }

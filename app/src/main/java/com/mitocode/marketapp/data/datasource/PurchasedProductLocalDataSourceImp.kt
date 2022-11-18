@@ -25,6 +25,10 @@ class PurchasedProductLocalDataSourceImp @Inject constructor(private val purchas
         purchasedProductDao.deletePurchasedProduct(dbPurchasedProduct)
     }
 
+    override suspend fun deleteAll(dbPurchasedProduct: List<DbPurchasedProduct>): Error? = tryCallNoReturnData {
+        purchasedProductDao.deleteAll(dbPurchasedProduct)
+    }
+
     private fun List<DbPurchasedProduct>.toDomainModel() : List<PurchasedProduct> = map{ it.toDomainModel() }
     private fun DbPurchasedProduct.toDomainModel() : PurchasedProduct = PurchasedProduct(purchase_id, uuid, description, price, image, amount, total)
 }

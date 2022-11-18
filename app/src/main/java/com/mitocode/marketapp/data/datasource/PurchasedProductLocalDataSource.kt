@@ -13,4 +13,6 @@ interface PurchasedProductLocalDataSource {
     suspend fun update(dbPurchasedProduct: DbPurchasedProduct): Error?
 
     suspend fun delete(dbPurchasedProduct: DbPurchasedProduct): Error?
+
+    suspend fun deleteAll(dbPurchasedProduct: List<DbPurchasedProduct>): Error?
 }

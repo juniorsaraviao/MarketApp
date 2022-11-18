@@ -3,8 +3,6 @@ package com.mitocode.marketapp.ui.order
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,14 +17,11 @@ import com.mitocode.marketapp.core.BaseAdapter
 import com.mitocode.marketapp.databinding.DialogUpdatePurchaseBinding
 import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentOrdersBinding
-import com.mitocode.marketapp.databinding.ItemCategoryBinding
 import com.mitocode.marketapp.databinding.ItemPurchasedOrderBinding
-import com.mitocode.marketapp.domain.Category
 import com.mitocode.marketapp.domain.PurchasedProduct
 import com.mitocode.marketapp.ui.common.toast
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.item_purchased_order.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -35,6 +30,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
     private val formatNumber = "%,.2f"
+    private var purchasedProductsList: List<PurchasedProduct> = listOf()
 
     private val adapter: BaseAdapter<PurchasedProduct> = object : BaseAdapter<PurchasedProduct>(emptyList()){
         override fun getViewHolder(parent: ViewGroup): BaseViewHolder<PurchasedProduct> {
@@ -54,7 +50,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                     }
 
                     imgEdit.setOnClickListener {
-                        createDialogVersion(entity).show()
+                        updatePurchasedProductDialog(entity).show()
                     }
                 }
 
@@ -73,6 +69,13 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     private fun init() {
         viewModel.loadPurchasedProducts()
+        binding.imgDeleteAll.setOnClickListener {
+            if(!purchasedProductsList.any()) {
+                requireContext().toast("No tienes productos para eliminar")
+                return@setOnClickListener
+            }
+            deleteAllProductsDialog().show()
+        }
     }
 
     private fun setupObservers() {
@@ -95,6 +98,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             is OrdersViewModel.OrdersState.Error -> requireContext().toast(state.rawResponse)
             is OrdersViewModel.OrdersState.IsLoading -> showProgress(state.isLoading)
             is OrdersViewModel.OrdersState.Success -> {
+                purchasedProductsList = state.purchasedProducts
                 adapter.update(state.purchasedProducts)
             }
             is OrdersViewModel.OrdersState.Amount -> {
@@ -107,7 +111,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         orderProgressBar.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 
-    private fun createDialogVersion(purchasedProduct: PurchasedProduct): AlertDialog {
+    private fun updatePurchasedProductDialog(purchasedProduct: PurchasedProduct): AlertDialog {
 
         val bindingAlert = DialogUpdatePurchaseBinding.inflate(LayoutInflater.from(requireContext()))
         val builder = AlertDialog.Builder(requireContext())
@@ -132,6 +136,31 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         }
 
         bindingAlert.btnClose.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        return alertDialog
+    }
+
+    private fun deleteAllProductsDialog(): AlertDialog {
+
+        val bindingAlert = DialogVersionBinding.inflate(LayoutInflater.from(requireContext()))
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(bindingAlert.root)
+
+        val alertDialog = builder.create()
+        alertDialog.setCancelable(false)
+
+        bindingAlert.btnUpdate.text = "Eliminar"
+        bindingAlert.btnLater.text = "Cancelar"
+        bindingAlert.tvMessage.text = "¿Estás seguro de eliminar todos los productos de la lista?"
+
+        bindingAlert.btnUpdate.setOnClickListener {
+            viewModel.deleteAllProducts(purchasedProductsList)
+            alertDialog.dismiss()
+        }
+
+        bindingAlert.btnLater.setOnClickListener {
             alertDialog.dismiss()
         }
 

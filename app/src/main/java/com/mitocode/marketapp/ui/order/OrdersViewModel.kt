@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.mitocode.marketapp.domain.Category
 import com.mitocode.marketapp.domain.PurchasedProduct
 import com.mitocode.marketapp.ui.category.CategoryViewModel
+import com.mitocode.marketapp.usescases.DeleteAllPurchasedProducts
 import com.mitocode.marketapp.usescases.DeletePurchasedProduct
 import com.mitocode.marketapp.usescases.GetPurchasedProducts
 import com.mitocode.marketapp.usescases.UpdatePurchasedProduct
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class OrdersViewModel @Inject
 constructor(private val getPurchasedProducts: GetPurchasedProducts,
 private val deletePurchasedProduct: DeletePurchasedProduct,
-private val updatePurchasedProduct: UpdatePurchasedProduct): ViewModel() {
+private val updatePurchasedProduct: UpdatePurchasedProduct,
+private val deleteAllPurchasedProducts: DeleteAllPurchasedProducts): ViewModel() {
 
     private val _state: MutableStateFlow<OrdersState> = MutableStateFlow(OrdersState.Init)
     val state: StateFlow<OrdersState> = _state
@@ -50,6 +52,15 @@ private val updatePurchasedProduct: UpdatePurchasedProduct): ViewModel() {
         viewModelScope.launch {
             _state.value = OrdersState.IsLoading(true)
             deletePurchasedProduct(purchasedProduct)
+            loadPurchasedProducts()
+            _state.value = OrdersState.IsLoading(false)
+        }
+    }
+
+    fun deleteAllProducts(purchasedProducts: List<PurchasedProduct>){
+        viewModelScope.launch {
+            _state.value = OrdersState.IsLoading(true)
+            deleteAllPurchasedProducts(purchasedProducts)
             loadPurchasedProducts()
             _state.value = OrdersState.IsLoading(false)
         }
