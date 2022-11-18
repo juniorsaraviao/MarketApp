@@ -27,6 +27,9 @@ data class DbPurchasedProduct(
     @ColumnInfo(name = "uuid")
     @NotNull
     val uuid: String,
+    @ColumnInfo(name = "categoryId")
+    @NotNull
+    val categoryId: String,
     @ColumnInfo(name = "description")
     val description: String,
     @ColumnInfo(name = "price")

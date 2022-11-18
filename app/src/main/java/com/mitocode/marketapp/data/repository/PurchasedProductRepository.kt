@@ -29,8 +29,8 @@ class PurchasedProductRepository
         purchasedProductLocalDataSource.deleteAll(purchasedProducts.toLocalModel())
     }
 
-    private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(purchase_id = purchase_id, uuid =  uuid, description = description, price = price,
-        image = image, amount = amount, total = total)
+    private fun PurchasedProduct.toLocalModel(): DbPurchasedProduct = DbPurchasedProduct(purchase_id = purchase_id, uuid =  uuid, categoryId = categoryId,
+        description = description, price = price, image = image, amount = amount, total = total)
 
     private fun List<PurchasedProduct>.toLocalModel() : List<DbPurchasedProduct> = map{ it.toLocalModel() }
 }

@@ -30,5 +30,5 @@ class PurchasedProductLocalDataSourceImp @Inject constructor(private val purchas
     }
 
     private fun List<DbPurchasedProduct>.toDomainModel() : List<PurchasedProduct> = map{ it.toDomainModel() }
-    private fun DbPurchasedProduct.toDomainModel() : PurchasedProduct = PurchasedProduct(purchase_id, uuid, description, price, image, amount, total)
+    private fun DbPurchasedProduct.toDomainModel() : PurchasedProduct = PurchasedProduct(purchase_id, uuid, categoryId, description, price, image, amount, total)
 }
