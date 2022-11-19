@@ -1,5 +1,7 @@
 package com.mitocode.marketapp.domain
 
+import java.io.Serializable
+
 class PurchasedProduct(
     val purchase_id: Int = 0,
     val uuid: String,
@@ -10,3 +12,7 @@ class PurchasedProduct(
     var amount: Int,
     var total: Double
 )
+
+class PurchasedProductList(
+    val purchasedProductList: List<PurchasedProduct>
+): Serializable

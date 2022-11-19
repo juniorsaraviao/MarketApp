@@ -12,14 +12,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.core.BaseAdapter
 import com.mitocode.marketapp.databinding.DialogUpdatePurchaseBinding
 import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentOrdersBinding
 import com.mitocode.marketapp.databinding.ItemPurchasedOrderBinding
+import com.mitocode.marketapp.domain.Product
 import com.mitocode.marketapp.domain.PurchasedProduct
+import com.mitocode.marketapp.domain.PurchasedProductList
 import com.mitocode.marketapp.ui.common.toast
+import com.mitocode.marketapp.ui.product.ProductFragmentDirections
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -76,6 +80,14 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
             deleteAllProductsDialog().show()
         }
+        binding.btnCheckIn.setOnClickListener {
+            onItemSelected(purchasedProductsList)
+        }
+    }
+
+    private fun onItemSelected(entity: List<PurchasedProduct>) {
+        val directions = OrdersFragmentDirections.actionOrdersFragmentToPaymentFragment(PurchasedProductList(entity))
+        Navigation.findNavController(binding.root).navigate(directions)
     }
 
     private fun setupObservers() {

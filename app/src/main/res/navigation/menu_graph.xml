@@ -18,7 +18,11 @@
         android:id="@+id/ordersFragment"
         android:name="com.mitocode.marketapp.ui.order.OrdersFragment"
         android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productFragment"
         android:name="com.mitocode.marketapp.ui.product.ProductFragment"
@@ -52,4 +56,13 @@
         android:name="com.mitocode.marketapp.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.mitocode.marketapp.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <argument
+            android:name="purchasedProducts"
+            app:argType="com.mitocode.marketapp.domain.PurchasedProductList" />
+    </fragment>
 </navigation>
