@@ -21,8 +21,10 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         init()
     }
 
-    private fun init() {
-        
+    private fun init() = with(binding) {
+        imgDirection.setOnClickListener {
+
+        }
     }
 
 }

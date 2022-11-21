@@ -80,4 +80,5 @@
     <string name="fragment_payment_cash">Efectivo</string>
     <string name="fragment_payment_amount">Monto con el que va a pagar</string>
     <string name="fragment_payment_pay_button">Realizar pago</string>
+    <string name="fragment_payment_type">Tipo de pago</string>
 </resources>
