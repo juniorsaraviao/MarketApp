@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imgBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -25,12 +25,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Realizar Pago"
+            android:text="@string/fragment_payment_title"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+            app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+            app:layout_constraintStart_toEndOf="@+id/imgBack"
+            app:layout_constraintTop_toTopOf="@+id/imgBack" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Dirección"
+                android:text="@string/fragment_payment_direction"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/imgDirection"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="10dp"
@@ -80,35 +80,35 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/cbHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Casa"
+                android:text="@string/fragment_payment_home"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/cbOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Otro"
+                android:text="@string/fragment_payment_other"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/cbOffice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Oficina"
-                app:layout_constraintEnd_toStartOf="@+id/checkBox2"
-                app:layout_constraintStart_toEndOf="@+id/checkBox"
+                android:text="@string/fragment_payment_office"
+                app:layout_constraintEnd_toStartOf="@+id/cbOther"
+                app:layout_constraintStart_toEndOf="@+id/cbHome"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -120,12 +120,13 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox3">
+                app:layout_constraintTop_toBottomOf="@+id/cbOffice">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDirection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Dirección" />
+                    android:hint="@string/fragment_payment_direction" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -140,9 +141,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etReference"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Referencia" />
+                    android:hint="@string/fragment_payment_reference" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -157,9 +159,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Distrito" />
+                    android:hint="@string/fragment_payment_district" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -221,7 +224,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:hint="Fecha"
+                android:hint="@string/fragment_payment_date"
                 android:orientation="vertical"
                 app:endIconDrawable="@drawable/ic_calendar"
                 app:endIconMode="custom"
@@ -231,6 +234,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
@@ -244,6 +248,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:hint="@string/fragment_payment_time"
                 app:endIconDrawable="@drawable/ic_time"
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -251,9 +256,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/dateOfBirth">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Hora"
                     android:inputType="time" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -306,34 +311,34 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
             <CheckBox
-                android:id="@+id/checkBox4"
+                android:id="@+id/cbYape"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Contraentrega Yape"
+                android:text="@string/fragment_payment_yape"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
-                android:id="@+id/checkBox5"
+                android:id="@+id/cbPlin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Contraentrega Plin"
+                android:text="@string/fragment_payment_plin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox4" />
+                app:layout_constraintTop_toBottomOf="@+id/cbYape" />
 
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/cbCash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Efectivo"
+                android:text="@string/fragment_payment_cash"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox5" />
+                app:layout_constraintTop_toBottomOf="@+id/cbPlin" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -343,13 +348,14 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox6">
+                app:layout_constraintTop_toBottomOf="@+id/cbCash">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTotalAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Monto con el que va a pagar"
-                    android:inputType="number"/>
+                    android:hint="@string/fragment_payment_amount"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -393,12 +399,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/btnCheckIn"
+            android:id="@+id/btnPay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Realizar pago"
+            android:text="@string/fragment_payment_pay_button"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
