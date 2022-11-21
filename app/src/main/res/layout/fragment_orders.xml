@@ -40,6 +40,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:text="@string/fragment_orders_check_in"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
