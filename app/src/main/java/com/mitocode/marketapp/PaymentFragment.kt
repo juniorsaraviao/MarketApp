@@ -1,10 +1,12 @@
 package com.mitocode.marketapp
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.mitocode.marketapp.databinding.FragmentPaymentBinding
 import com.mitocode.marketapp.ui.common.toast
@@ -22,9 +24,38 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
     }
 
     private fun init() = with(binding) {
-        imgDirection.setOnClickListener {
-
+        imgBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
+
+        imgDirection.setOnClickListener {
+            if(constraintDirection.visibility == View.GONE) {
+                imgDirection.animate().rotation(-180f).setDuration(500).start()
+            }else{
+                imgDirection.animate().rotation(0f).setDuration(500).start()
+            }
+            constraintDirection.visibility = if(constraintDirection.visibility == View.GONE) View.VISIBLE else View.GONE
+        }
+
+        imgDateTime.setOnClickListener {
+            if(constraintDateTime.visibility == View.GONE) {
+                imgDateTime.animate().rotation(-180f).setDuration(500).start()
+            }else{
+                imgDateTime.animate().rotation(0f).setDuration(500).start()
+            }
+            constraintDateTime.visibility = if(constraintDateTime.visibility == View.GONE) View.VISIBLE else View.GONE
+        }
+
+        imgPaymentType.setOnClickListener {
+            if(constraintPaymentType.visibility == View.GONE) {
+                imgPaymentType.animate().rotation(-180f).setDuration(500).start()
+            }else{
+                imgPaymentType.animate().rotation(0f).setDuration(500).start()
+            }
+            constraintPaymentType.visibility = if(constraintPaymentType.visibility == View.GONE) View.VISIBLE else View.GONE
+        }
+
+        tvPaymentTotalAmount.text = "S/. ${safeArgs.purchasedProducts.purchasedProductList.sumOf { it.total }}"
     }
 
 }
