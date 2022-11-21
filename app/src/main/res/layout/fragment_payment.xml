@@ -90,7 +90,7 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rbDirection">
+                app:layout_constraintTop_toBottomOf="@+id/rgDirection">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDirection"
@@ -136,7 +136,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup
-                android:id="@+id/rbDirection"
+                android:id="@+id/rgDirection"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"

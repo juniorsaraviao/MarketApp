@@ -15,6 +15,8 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
     private lateinit var binding: FragmentPaymentBinding
     private val safeArgs: PaymentFragmentArgs by navArgs()
+    private var directionType: Int = 0
+    private var paymentType: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +55,22 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
                 imgPaymentType.animate().rotation(0f).setDuration(500).start()
             }
             constraintPaymentType.visibility = if(constraintPaymentType.visibility == View.GONE) View.VISIBLE else View.GONE
+        }
+
+        rgDirection.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                rbHome.id -> directionType = 1
+                rbOffice.id -> directionType = 2
+                rbOther.id -> directionType = 3
+            }
+        }
+
+        rgPaymentType.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                rbYape.id -> paymentType = 1
+                rbPlin.id -> paymentType = 2
+                rbCash.id -> paymentType = 3
+            }
         }
 
         tvPaymentTotalAmount.text = "S/. ${safeArgs.purchasedProducts.purchasedProductList.sumOf { it.total }}"
