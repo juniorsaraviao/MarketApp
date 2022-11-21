@@ -80,37 +80,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
-            <CheckBox
-                android:id="@+id/cbHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/fragment_payment_home"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <CheckBox
-                android:id="@+id/cbOther"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/fragment_payment_other"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <CheckBox
-                android:id="@+id/cbOffice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/fragment_payment_office"
-                app:layout_constraintEnd_toStartOf="@+id/cbOther"
-                app:layout_constraintStart_toEndOf="@+id/cbHome"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -121,7 +90,7 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cbOffice">
+                app:layout_constraintTop_toBottomOf="@+id/rbDirection">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDirection"
@@ -165,6 +134,50 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/fragment_payment_district" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/rbDirection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rbHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/green_color"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="@string/fragment_payment_home"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rbOffice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/green_color"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="@string/fragment_payment_office"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rbOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/green_color"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="@string/fragment_payment_other"
+                    android:textSize="16sp" />
+            </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -313,35 +326,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
-            <CheckBox
-                android:id="@+id/cbYape"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/rgPaymentType"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/fragment_payment_yape"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <CheckBox
-                android:id="@+id/cbPlin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/fragment_payment_plin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cbYape" />
+                <RadioButton
+                    android:id="@+id/rbYape"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/green_color"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="@string/fragment_payment_yape"
+                    android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/cbCash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/fragment_payment_cash"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cbPlin" />
+                <RadioButton
+                    android:id="@+id/rbPlin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/green_color"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="@string/fragment_payment_plin"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rbCash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/green_color"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="@string/fragment_payment_cash"
+                    android:textSize="16sp" />
+
+            </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -351,7 +378,7 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cbCash">
+                app:layout_constraintTop_toBottomOf="@+id/rgPaymentType">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTotalAmount"
