@@ -129,7 +129,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edDistrict"
+                    android:id="@+id/etDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/fragment_payment_district" />
@@ -271,7 +271,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/dateOfBirth">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edTime"
+                    android:id="@+id/etTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time" />

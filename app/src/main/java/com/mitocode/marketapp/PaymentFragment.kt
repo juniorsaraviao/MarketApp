@@ -7,13 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.mitocode.marketapp.data.server.OrderRequest
 import com.mitocode.marketapp.databinding.FragmentPaymentBinding
 import com.mitocode.marketapp.ui.common.toast
 
 class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
     private lateinit var binding: FragmentPaymentBinding
+    private val viewModel: PaymentViewModel by viewModels()
     private val safeArgs: PaymentFragmentArgs by navArgs()
     private var directionType: Int = 0
     private var paymentType: Int = 0
@@ -74,6 +77,21 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         }
 
         tvPaymentTotalAmount.text = "S/. ${safeArgs.purchasedProducts.purchasedProductList.sumOf { it.total }}"
+
+        btnPay.setOnClickListener {
+            if(directionType == 0 && etDirection.text!!.isEmpty() && etReference.text!!.isEmpty() && etDistrict.text!!.isEmpty() &&
+                    etDate.text!!.isEmpty() && etTime.text!!.isEmpty() && paymentType == 0 && etTotalAmount.text!!.isEmpty()){
+                showToast()
+                return@setOnClickListener
+            }
+
+            //viewModel.savePurchasedOrder(OrderRequest())
+        }
+
+    }
+
+    private fun showToast(){
+        requireContext().toast("Ingresa todo los campos requeridos")
     }
 
 }
