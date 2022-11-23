@@ -245,7 +245,8 @@
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholderText="Ex: 2021-05-15">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -268,7 +269,8 @@
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateOfBirth">
+                app:layout_constraintTop_toBottomOf="@+id/dateOfBirth"
+                app:placeholderText="Ex: 14:30">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTime"
@@ -385,7 +387,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/fragment_payment_amount"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

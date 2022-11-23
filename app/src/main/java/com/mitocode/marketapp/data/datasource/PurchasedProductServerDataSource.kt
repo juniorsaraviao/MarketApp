@@ -17,7 +17,7 @@ class PurchasedProductServerDataSource @Inject constructor(
 
     override suspend fun saveProductProductOrder(orderRequest: OrderRequest): Either<Error, WrappedResponse<String>> = tryCall {
         val token = sharedPreferences.getString(Constants.TOKEN, "") ?: ""
-        remoteService.savePurchasedProductsOrder(token, orderRequest)
+        remoteService.savePurchasedProductsOrder("Bearer $token", orderRequest)
     }
 
 }

@@ -15,16 +15,22 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.mitocode.marketapp.data.server.DirectionRequest
 import com.mitocode.marketapp.data.server.OrderRequest
+import com.mitocode.marketapp.data.server.PaymentMethodRequest
+import com.mitocode.marketapp.data.server.ProductRequest
 import com.mitocode.marketapp.databinding.DialogPaymentSuccessBinding
 import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentPaymentBinding
+import com.mitocode.marketapp.domain.PurchasedProduct
 import com.mitocode.marketapp.ui.common.gone
 import com.mitocode.marketapp.ui.common.toast
 import com.mitocode.marketapp.ui.common.visible
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_payment_success.*
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
     private lateinit var binding: FragmentPaymentBinding
@@ -32,6 +38,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
     private val safeArgs: PaymentFragmentArgs by navArgs()
     private var directionType: Int = 0
     private var paymentType: Int = 0
+    private val formatNumber = "%,.2f"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -89,16 +96,30 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             }
         }
 
-        tvPaymentTotalAmount.text = "S/. ${safeArgs.purchasedProducts.purchasedProductList.sumOf { it.total }}"
+        tvPaymentTotalAmount.text = "S/. ${formatNumber.format(safeArgs.purchasedProducts.purchasedProductList.sumOf { it.total })}"
 
         btnPay.setOnClickListener {
-            if(directionType == 0 && etDirection.text!!.isEmpty() && etReference.text!!.isEmpty() && etDistrict.text!!.isEmpty() &&
-                    etDate.text!!.isEmpty() && etTime.text!!.isEmpty() && paymentType == 0 && etTotalAmount.text!!.isEmpty()){
+            if(directionType == 0 || etDirection.text!!.isEmpty() || etReference.text!!.isEmpty() || etDistrict.text!!.isEmpty() ||
+                    etDate.text!!.isEmpty() || etTime.text!!.isEmpty() || paymentType == 0 || etTotalAmount.text!!.isEmpty()){
                 showToast()
                 return@setOnClickListener
             }
 
-            //viewModel.savePurchasedOrder(OrderRequest())
+            viewModel.savePurchasedOrder(OrderRequest(
+                DirectionRequest(
+                    directionType,
+                    etDirection.text.toString(),
+                    etReference.text.toString(),
+                    etDistrict.text.toString()
+                ),
+                PaymentMethodRequest(
+                    paymentType,
+                    etTotalAmount.text.toString().toDouble()
+                ),
+                "${etDate.text} ${etTime.text}",
+                safeArgs.purchasedProducts.purchasedProductList.map { it.toProductRequest() },
+                safeArgs.purchasedProducts.purchasedProductList.sumOf { it.total }
+            ))
         }
 
     }
@@ -119,8 +140,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.Error -> requireContext().toast(state.rawResponse)
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.IsLoading -> handlerLoading(state.isLoading)
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.Success -> {
-                createDialogVersion(state.response)
-                requireActivity().onBackPressed()
+                createDialogVersion(state.response).show()
             }
         }
     }
@@ -143,13 +163,16 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         val alertDialog = builder.create()
         alertDialog.setCancelable(false)
 
-        tvOrderNumber.text = order
+        bindingAlert.tvOrderNumber.text = order
 
         bindingAlert.btnAccept.setOnClickListener {
             alertDialog.dismiss()
+            requireActivity().onBackPressed()
         }
 
         return alertDialog
     }
+
+    private fun PurchasedProduct.toProductRequest(): ProductRequest = ProductRequest(categoryId, productId = uuid, amount)
 
 }
