@@ -1,11 +1,14 @@
 package com.mitocode.marketapp
 
+import android.content.Intent
+import android.net.Uri
 import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,10 +16,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.mitocode.marketapp.data.server.OrderRequest
+import com.mitocode.marketapp.databinding.DialogPaymentSuccessBinding
+import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentPaymentBinding
 import com.mitocode.marketapp.ui.common.gone
 import com.mitocode.marketapp.ui.common.toast
 import com.mitocode.marketapp.ui.common.visible
+import kotlinx.android.synthetic.main.dialog_payment_success.*
 import kotlinx.coroutines.launch
 
 class PaymentFragment : Fragment(R.layout.fragment_payment) {
@@ -113,7 +119,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.Error -> requireContext().toast(state.rawResponse)
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.IsLoading -> handlerLoading(state.isLoading)
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.Success -> {
-                requireContext().toast(state.response)
+                createDialogVersion(state.response)
                 requireActivity().onBackPressed()
             }
         }
@@ -126,6 +132,24 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
     private fun showToast(){
         requireContext().toast("Ingresa todo los campos requeridos")
+    }
+
+    private fun createDialogVersion(order: String): AlertDialog {
+
+        val bindingAlert = DialogPaymentSuccessBinding.inflate(LayoutInflater.from(requireContext()))
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(bindingAlert.root)
+
+        val alertDialog = builder.create()
+        alertDialog.setCancelable(false)
+
+        tvOrderNumber.text = order
+
+        bindingAlert.btnAccept.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        return alertDialog
     }
 
 }

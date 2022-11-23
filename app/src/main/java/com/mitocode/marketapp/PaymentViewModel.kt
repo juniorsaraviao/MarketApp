@@ -37,7 +37,11 @@ class PaymentViewModel @Inject constructor(private val savePurchasedProductOrder
                             _state.value = RegisterPurchasedPurchasedOrder.Error(error.toString())
                         },
                         { res ->
-                            _state.value = RegisterPurchasedPurchasedOrder.Success(res.message)
+                            if(res.success){
+                                _state.value = RegisterPurchasedPurchasedOrder.Success(res.data!!)
+                            }else{
+                                _state.value = RegisterPurchasedPurchasedOrder.Error(res.message)
+                            }
                         }
                     )
                 }
