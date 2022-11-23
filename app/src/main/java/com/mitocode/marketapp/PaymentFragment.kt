@@ -8,10 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.mitocode.marketapp.data.server.OrderRequest
 import com.mitocode.marketapp.databinding.FragmentPaymentBinding
+import com.mitocode.marketapp.ui.common.gone
 import com.mitocode.marketapp.ui.common.toast
+import com.mitocode.marketapp.ui.common.visible
+import kotlinx.coroutines.launch
 
 class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
@@ -26,6 +32,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         binding = FragmentPaymentBinding.bind(view)
 
         init()
+        setupObservables()
     }
 
     private fun init() = with(binding) {
@@ -88,6 +95,33 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             //viewModel.savePurchasedOrder(OrderRequest())
         }
 
+    }
+
+    private fun setupObservables() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.state.collect{ state ->
+                    updateUI(state)
+                }
+            }
+        }
+    }
+
+    private fun updateUI(state: PaymentViewModel.RegisterPurchasedPurchasedOrder) {
+        when(state){
+            PaymentViewModel.RegisterPurchasedPurchasedOrder.Init -> Unit
+            is PaymentViewModel.RegisterPurchasedPurchasedOrder.Error -> requireContext().toast(state.rawResponse)
+            is PaymentViewModel.RegisterPurchasedPurchasedOrder.IsLoading -> handlerLoading(state.isLoading)
+            is PaymentViewModel.RegisterPurchasedPurchasedOrder.Success -> {
+                requireContext().toast(state.response)
+                requireActivity().onBackPressed()
+            }
+        }
+    }
+
+    private fun handlerLoading(isLoading: Boolean) = with(binding){
+        if (isLoading) paymentProgressBar.visible()
+        else paymentProgressBar.gone()
     }
 
     private fun showToast(){
