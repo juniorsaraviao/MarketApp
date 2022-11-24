@@ -82,4 +82,7 @@
     <string name="fragment_payment_pay_button">Realizar pago</string>
     <string name="fragment_payment_type">Tipo de pago</string>
     <string name="fragment_orders_empty_list">No tienes compras registradas</string>
+    <string name="dialog_payment_order">Orden de compra:</string>
+    <string name="dialog_payment_message">Enhorabuena! Su compra se registró correctamente</string>
+    <string name="dialog_payment_title">Felicitaciones</string>
 </resources>

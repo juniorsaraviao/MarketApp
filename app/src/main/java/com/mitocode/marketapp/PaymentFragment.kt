@@ -53,7 +53,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             requireActivity().onBackPressed()
         }
 
-        imgDirection.setOnClickListener {
+        constraintAddress.setOnClickListener {
             if(constraintDirection.visibility == View.GONE) {
                 imgDirection.animate().rotation(-180f).setDuration(500).start()
             }else{
@@ -62,7 +62,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             constraintDirection.visibility = if(constraintDirection.visibility == View.GONE) View.VISIBLE else View.GONE
         }
 
-        imgDateTime.setOnClickListener {
+        constraintDate.setOnClickListener {
             if(constraintDateTime.visibility == View.GONE) {
                 imgDateTime.animate().rotation(-180f).setDuration(500).start()
             }else{
@@ -71,7 +71,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             constraintDateTime.visibility = if(constraintDateTime.visibility == View.GONE) View.VISIBLE else View.GONE
         }
 
-        imgPaymentType.setOnClickListener {
+        constraintPayment.setOnClickListener {
             if(constraintPaymentType.visibility == View.GONE) {
                 imgPaymentType.animate().rotation(-180f).setDuration(500).start()
             }else{
