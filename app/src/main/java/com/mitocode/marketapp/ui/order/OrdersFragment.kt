@@ -121,11 +121,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     }
 
     private fun activateBtnCheckInButton() = with(binding) {
-        if (purchasedProductsList.any()) {
-            btnCheckIn.isEnabled = true
-        } else {
-            btnCheckIn.isEnabled = false
-        }
+        btnCheckIn.isEnabled = purchasedProductsList.any()
     }
 
     private fun showProgress(visibility: Boolean) = with(binding) {
