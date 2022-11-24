@@ -41,28 +41,43 @@ private val deleteAllPurchasedProducts: DeleteAllPurchasedProducts): ViewModel()
 
     fun updateProduct(purchasedProduct: PurchasedProduct){
         viewModelScope.launch {
-            _state.value = OrdersState.IsLoading(true)
-            updatePurchasedProduct(purchasedProduct)
-            loadPurchasedProducts()
-            _state.value = OrdersState.IsLoading(false)
+            try {
+                _state.value = OrdersState.IsLoading(true)
+                updatePurchasedProduct(purchasedProduct)
+                loadPurchasedProducts()
+            }catch (ex: Exception){
+                _state.value = OrdersState.Error(ex.toString())
+            }finally {
+                _state.value = OrdersState.IsLoading(false)
+            }
         }
     }
 
     fun deleteProduct(purchasedProduct: PurchasedProduct){
         viewModelScope.launch {
-            _state.value = OrdersState.IsLoading(true)
-            deletePurchasedProduct(purchasedProduct)
-            loadPurchasedProducts()
-            _state.value = OrdersState.IsLoading(false)
+            try {
+                _state.value = OrdersState.IsLoading(true)
+                deletePurchasedProduct(purchasedProduct)
+                loadPurchasedProducts()
+            }catch (ex: Exception){
+                _state.value = OrdersState.Error(ex.toString())
+            }finally {
+                _state.value = OrdersState.IsLoading(false)
+            }
         }
     }
 
     fun deleteAllProducts(purchasedProducts: List<PurchasedProduct>){
         viewModelScope.launch {
-            _state.value = OrdersState.IsLoading(true)
-            deleteAllPurchasedProducts(purchasedProducts)
-            loadPurchasedProducts()
-            _state.value = OrdersState.IsLoading(false)
+            try {
+                _state.value = OrdersState.IsLoading(true)
+                deleteAllPurchasedProducts(purchasedProducts)
+                loadPurchasedProducts()
+            }catch (ex: Exception){
+                _state.value = OrdersState.Error(ex.toString())
+            }finally {
+                _state.value = OrdersState.IsLoading(false)
+            }
         }
     }
 

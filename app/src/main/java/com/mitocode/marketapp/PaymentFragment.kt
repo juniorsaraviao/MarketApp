@@ -140,6 +140,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.Error -> requireContext().toast(state.rawResponse)
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.IsLoading -> handlerLoading(state.isLoading)
             is PaymentViewModel.RegisterPurchasedPurchasedOrder.Success -> {
+                viewModel.deleteAllProducts(safeArgs.purchasedProducts.purchasedProductList)
                 createDialogVersion(state.response).show()
             }
         }

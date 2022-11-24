@@ -3,7 +3,10 @@ package com.mitocode.marketapp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitocode.marketapp.data.server.OrderRequest
+import com.mitocode.marketapp.domain.PurchasedProduct
+import com.mitocode.marketapp.ui.order.OrdersViewModel
 import com.mitocode.marketapp.ui.product.ProductViewModel
+import com.mitocode.marketapp.usescases.DeleteAllPurchasedProducts
 import com.mitocode.marketapp.usescases.RegisterProduct
 import com.mitocode.marketapp.usescases.SavePurchasedProductOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +19,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class PaymentViewModel @Inject constructor(private val savePurchasedProductOrder: SavePurchasedProductOrder) : ViewModel() {
+class PaymentViewModel @Inject constructor(
+    private val savePurchasedProductOrder: SavePurchasedProductOrder,
+    private val deleteAllPurchasedProducts: DeleteAllPurchasedProducts) : ViewModel() {
 
     private val _state = MutableStateFlow<RegisterPurchasedPurchasedOrder>(RegisterPurchasedPurchasedOrder.Init)
     val state: StateFlow<RegisterPurchasedPurchasedOrder> = _state.asStateFlow()
@@ -46,6 +51,19 @@ class PaymentViewModel @Inject constructor(private val savePurchasedProductOrder
                     )
                 }
 
+            }catch (ex: Exception){
+                _state.value = RegisterPurchasedPurchasedOrder.Error(ex.toString())
+            }finally {
+                _state.value = RegisterPurchasedPurchasedOrder.IsLoading(false)
+            }
+        }
+    }
+
+    fun deleteAllProducts(purchasedProducts: List<PurchasedProduct>){
+        viewModelScope.launch {
+            try{
+                _state.value = RegisterPurchasedPurchasedOrder.IsLoading(true)
+                deleteAllPurchasedProducts(purchasedProducts)
             }catch (ex: Exception){
                 _state.value = RegisterPurchasedPurchasedOrder.Error(ex.toString())
             }finally {
