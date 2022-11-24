@@ -112,10 +112,19 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             is OrdersViewModel.OrdersState.Success -> {
                 purchasedProductsList = state.purchasedProducts
                 adapter.update(state.purchasedProducts)
+                activateBtnCheckInButton()
             }
             is OrdersViewModel.OrdersState.Amount -> {
                 binding.tvTotalAmount.text = "S/. ${formatNumber.format(state.amount)}"
             }
+        }
+    }
+
+    private fun activateBtnCheckInButton() = with(binding) {
+        if (purchasedProductsList.any()) {
+            btnCheckIn.isEnabled = true
+        } else {
+            btnCheckIn.isEnabled = false
         }
     }
 
