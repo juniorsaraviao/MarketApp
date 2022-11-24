@@ -12,16 +12,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import com.mitocode.marketapp.R
 import com.mitocode.marketapp.core.BaseAdapter
 import com.mitocode.marketapp.databinding.DialogUpdatePurchaseBinding
 import com.mitocode.marketapp.databinding.DialogVersionBinding
 import com.mitocode.marketapp.databinding.FragmentOrdersBinding
 import com.mitocode.marketapp.databinding.ItemPurchasedOrderBinding
+import com.mitocode.marketapp.domain.Product
 import com.mitocode.marketapp.domain.PurchasedProduct
+import com.mitocode.marketapp.domain.PurchasedProductList
 import com.mitocode.marketapp.ui.common.toast
+import com.mitocode.marketapp.ui.product.ProductFragmentDirections
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_orders.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -76,6 +81,14 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
             deleteAllProductsDialog().show()
         }
+        binding.btnCheckIn.setOnClickListener {
+            onItemSelected(purchasedProductsList)
+        }
+    }
+
+    private fun onItemSelected(entity: List<PurchasedProduct>) {
+        val directions = OrdersFragmentDirections.actionOrdersFragmentToPaymentFragment(PurchasedProductList(entity))
+        Navigation.findNavController(binding.root).navigate(directions)
     }
 
     private fun setupObservers() {
@@ -98,12 +111,26 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             is OrdersViewModel.OrdersState.Error -> requireContext().toast(state.rawResponse)
             is OrdersViewModel.OrdersState.IsLoading -> showProgress(state.isLoading)
             is OrdersViewModel.OrdersState.Success -> {
-                purchasedProductsList = state.purchasedProducts
-                adapter.update(state.purchasedProducts)
+                checkPurchasedProduct(state)
             }
             is OrdersViewModel.OrdersState.Amount -> {
                 binding.tvTotalAmount.text = "S/. ${formatNumber.format(state.amount)}"
             }
+        }
+    }
+
+    private fun checkPurchasedProduct(state: OrdersViewModel.OrdersState.Success) {
+        if (state.purchasedProducts.any()) {
+            purchasedProductsList = state.purchasedProducts
+            adapter.update(state.purchasedProducts)
+            binding.btnCheckIn.isEnabled = true
+            binding.rvPurchasedOrders.visibility = View.VISIBLE
+            binding.tvEmpty.visibility = View.GONE
+
+        } else {
+            binding.btnCheckIn.isEnabled = false
+            binding.rvPurchasedOrders.visibility = View.GONE
+            binding.tvEmpty.visibility = View.VISIBLE
         }
     }
 

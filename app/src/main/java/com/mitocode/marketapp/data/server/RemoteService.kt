@@ -34,4 +34,9 @@ interface RemoteService {
         @Header("Authorization") token:String,
         @Body request: RegisterCategoryRequest) : WrappedResponse<Nothing>
 
+    @POST("/api/compras/nueva-compra")
+    suspend fun savePurchasedProductsOrder(
+        @Header("Authorization") token:String,
+        @Body request: OrderRequest) : WrappedResponse<String>
+
 }
