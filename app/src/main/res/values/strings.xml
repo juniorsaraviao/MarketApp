@@ -81,4 +81,5 @@
     <string name="fragment_payment_amount">Monto con el que va a pagar</string>
     <string name="fragment_payment_pay_button">Realizar pago</string>
     <string name="fragment_payment_type">Tipo de pago</string>
+    <string name="fragment_orders_empty_list">No tienes compras registradas</string>
 </resources>
